@@ -3,8 +3,12 @@ import random
 
 b= 1
 y=1
-n=2
+n=10
 
+
+def sigmoid(x):
+    sig = 1 / (1 + math.exp(-x))
+    return sig
 
 
 def tan_hyperbolique(x):
@@ -22,60 +26,77 @@ def data_set():
         l.append(x)
      return(l)
 
-print(data_set())
+
 
 def poids():
     l=[]
+    w=0
     for i in range(n):
-        x= random.uniform(1,10)
-        l.append(x)
+        w= random.uniform(1,10)
+        l.append(w)
     return(l)
 
-print(poids())
 
 
+# fonction permettant de faire f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
+# return une liste avec a chaque fois x1w1+x2w2
 def somme_data_poids():
     liste_poids=poids()
     liste_data=data_set()
     a=0
-    compt=0
-    for i in liste_data:
-        for x in liste_poids:
-            produit=i*x
+    compt=1
+    paire=0
+    liste_paire=[]
+    for i in range(n):
+        produit=liste_poids[i]*liste_data[i]
+        #print('produit {:d} : '.format(compt), produit,paire)
+        if paire!=2:
             a+=produit
-            compt+=1
-            if compt==n:
-                return(a+b)
-    return(a)
+        else:
+            liste_paire.append(a)
+            a=liste_poids[i]*liste_data[i]
+            paire=0
+
+        if liste_poids[i]*liste_poids[i]==liste_poids[-1]*liste_poids[-1] and paire==1:
+            liste_paire.append(a)
+
+        if liste_poids[i]*liste_poids[i]==liste_poids[-1]*liste_poids[-1] and paire==0:
+            liste_paire.append(a)
+        paire+=1
+        compt+=1
+        
+    return(liste_paire)
 
 
-def somme_data_poids():
-    liste_poids=poids()
-    liste_data=data_set()
 
-
-
-
-
-
-
-
-
+#Liste des estimations
 def f_complexe():
      f= somme_data_poids()
-     estimation_tan=tan_hyperbolique(f)
-     return estimation_tan
+     liste_estimation=[]
+     for i in f:
+        estimation=sigmoid(i+b)
+        liste_estimation.append(estimation)
+     return (liste_estimation)
+ 
+ 
 
-print(f_complexe())
-
+#Liste des erreurs des estimations
 def erreur():
-    y_estimation=f_complexe()
-    f_erreur=(y_estimation-y)**2
-    return f_erreur
+    liste_estimation=f_complexe()
+    liste_erreur=[]
+    for i in liste_estimation:
+        f_erreur=(i-y)**2
+        liste_erreur.append(f_erreur)
+    return (liste_erreur)
 
 
 
-print(erreur())
+#print("Data_set : ",data_set())
+#print("Poids : ",poids())
+
+print("Somme x1w1+x2w2: ",somme_data_poids())
+print("Liste des estimations : ",f_complexe())
+print("Liste des erreurs :",erreur())
 
 
 
