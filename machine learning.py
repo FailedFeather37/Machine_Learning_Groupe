@@ -1,15 +1,10 @@
 ﻿import math
 import random
 
-#ptites fonctions sigmoid tangente hyperpolique et leurs dérivé
-def sigmoid(x):
-    sig = 1 / (1 + math.exp(-x))
-    return sig
+b= 1
+y=1
+n=2
 
-
-def dev_sigmoid(x):
-    dev_sig = math.exp(x) / (math.exp(x) + 1)
-    return dev_sig
 
 
 def tan_hyperbolique(x):
@@ -18,32 +13,69 @@ def tan_hyperbolique(x):
      tanh = sinh / cosh
      return tanh
 
-def dev_tan_hyperbolique(x):
-    dev_tanh = (math.exp**2(x) - 1)/(math.exp**2(x) + 1)
-    return dev_tanh
 
-
-
-
-#ptite fonction qui genere des nombre aléatoire entre 0 et 1
-def aléatoire():
-
+def data_set():
      x=0
-
-     y=0
      l=[]
-     for i in range(100):
+     for i in range(n):
         x = random.uniform(0,1)
-        y = random.uniform(0,1)
         l.append(x)
-        l.append(y)
-     return l
-print(aléatoire())
+     return(l)
 
-#ça c'est la partie de mael
+print(data_set())
+
+def poids():
+    l=[]
+    for i in range(n):
+        x= random.uniform(1,10)
+        l.append(x)
+    return(l)
+
+print(poids())
+
+
+def somme_data_poids():
+    liste_poids=poids()
+    liste_data=data_set()
+    a=0
+    compt=0
+    for i in liste_data:
+        for x in liste_poids:
+            produit=i*x
+            a+=produit
+            compt+=1
+            if compt==n:
+                return(a+b)
+    return(a)
+
+
+def somme_data_poids():
+    liste_poids=poids()
+    liste_data=data_set()
 
 
 
+
+
+
+
+
+
+def f_complexe():
+     f= somme_data_poids()
+     estimation_tan=tan_hyperbolique(f)
+     return estimation_tan
+
+print(f_complexe())
+
+def erreur():
+    y_estimation=f_complexe()
+    f_erreur=(y_estimation-y)**2
+    return f_erreur
+
+
+
+print(erreur())
 
 
 
