@@ -32,7 +32,7 @@ def poids():
     l=[]
     w=0
     for i in range(n):
-        w= random.uniform(1,10)
+        w= random.uniform(0,1)
         l.append(w)
     return(l)
 
@@ -64,7 +64,7 @@ def somme_data_poids():
             liste_paire.append(a)
         paire+=1
         compt+=1
-        
+
     return(liste_paire)
 
 
@@ -74,17 +74,22 @@ def f_complexe():
      f= somme_data_poids()
      liste_estimation=[]
      for i in f:
-        estimation=sigmoid(i+b)
+        estimation=sigmoid(i+b) # rajout du billet
         liste_estimation.append(estimation)
      return (liste_estimation)
- 
- 
+
+
 
 #Liste des erreurs des estimations
 def erreur():
     liste_estimation=f_complexe()
     liste_erreur=[]
     for i in liste_estimation:
+        if i >=0.5:
+            y=1
+
+        else:
+            y=0
         f_erreur=(i-y)**2
         liste_erreur.append(f_erreur)
     return (liste_erreur)
@@ -97,8 +102,6 @@ def erreur():
 print("Somme x1w1+x2w2: ",somme_data_poids())
 print("Liste des estimations : ",f_complexe())
 print("Liste des erreurs :",erreur())
-
-
 
 
 
