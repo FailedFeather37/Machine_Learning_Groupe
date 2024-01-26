@@ -1,5 +1,5 @@
-﻿from machine_learning import *
-
+﻿#from machine_learning import *
+from math import *
 
 class Variable:
     def __init__(self, value,gradiant=()):
@@ -36,15 +36,26 @@ class Variable:
         f= Variable(inv,gradient)
         return f
 
+    def exp(self):
+        exp_value=exp(self.value)
+        gradiant=[(self,self)]
+        h = Variable(exp_value,gradiant)
+        return h
 
+    
 a = Variable(5)
 b = Variable(6)
 
 c = a + b
-#print(c.gradiant)
+# print(c.gradiant)
 d = a - b
 
 e = a * b
-print()
+print("e : ",e.value)
 f = a / b
-print(f.value)
+
+print("f :",f.value)
+
+h=a.exp()
+
+print("h : ",h.value)
