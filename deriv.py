@@ -47,7 +47,7 @@ if __name__=="__main__":
     b = Variable(6)
 
     c = a + b
-    print("c :",c.value)
+    print("c :",c.value,c.gradiant)
     d = a - b
 
     e = a * b
@@ -60,8 +60,30 @@ if __name__=="__main__":
 
     print("h :",h.value)
 
-    liste_estimation=f_complexe()
-    y_prime= Variable(liste_estimation[0])
+    z=f_complexe()
+    liste_poids=poids()
+    liste_data=data_set()
+    x1=liste_data[0]
+    x2=liste_data[0]
+    w1=liste_poids[0]
+    w2=liste_poids[1]
+    b=1
+    
+    z= Variable(z)
+    x1 = Variable(x1)
+    x2 = Variable(x2)
+    w1 = Variable (w1)
+    w2 = Variable (w2)
+    b = Variable(b)
+    z=x1*w1
+    
+    
+    
+    sigmoid = z.exp()
+    print(sigmoid.gradiant)
+    
+    
+    
 
 
 
