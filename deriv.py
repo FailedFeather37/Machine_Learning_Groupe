@@ -1,4 +1,4 @@
-﻿#from machine_learning import *
+﻿from init_data import *
 from math import *
 
 class Variable:
@@ -38,24 +38,34 @@ class Variable:
 
     def exp(self):
         exp_value=exp(self.value)
-        gradiant=[(self,self)]
+        gradiant=[(self,self.value)]
         h = Variable(exp_value,gradiant)
         return h
 
-    
-a = Variable(5)
-b = Variable(6)
+if __name__=="__main__":
+    a = Variable(5)
+    b = Variable(6)
 
-c = a + b
-# print(c.gradiant)
-d = a - b
+    c = a + b
+    print("c :",c.value)
+    d = a - b
 
-e = a * b
-print("e : ",e.value)
-f = a / b
+    e = a * b
+    print("e :",e.value)
+    f = a / b
 
-print("f :",f.value)
+    print("f :",f.value)
 
-h=a.exp()
+    h=a.exp()
 
-print("h : ",h.value)
+    print("h :",h.value)
+
+    liste_estimation=f_complexe()
+    y_prime= Variable(liste_estimation[0])
+
+
+
+"""
+sigmoid = 1/ 1 + exp(-x)
+
+"""
