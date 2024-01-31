@@ -3,7 +3,7 @@ import random
 
 b= 1
 y=1
-n=10
+n=2
 
 
 def sigmoid(x):
