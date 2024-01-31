@@ -1,19 +1,19 @@
-﻿import math
+from math import *
 import random
 
 b= 1
 y=1
 n=2
-
+assert n>=2, "n pas assez grand"
 
 def sigmoid(x):
-    sig = 1 / (1 + math.exp(-x))
+    sig = 1 / (1 + exp(-x))
     return sig
 
 
 def tan_hyperbolique(x):
-     cosh = (math.exp(x) + math.exp(-x)) / 2
-     sinh = (math.exp(x) - math.exp(-x)) / 2
+     cosh = (exp(x) + exp(-x)) / 2
+     sinh = (exp(x) - exp(-x)) / 2
      tanh = sinh / cosh
      return tanh
 
@@ -32,10 +32,9 @@ def poids():
     l=[]
     w=0
     for i in range(n):
-        w= random.uniform(0,1)
+        w= random.uniform(-1,1)
         l.append(w)
     return(l)
-
 
 
 # fonction permettant de faire f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
@@ -87,21 +86,30 @@ def erreur():
     for i in liste_estimation:
         if i >=0.5:
             y=1
-
         else:
             y=0
         f_erreur=(i-y)**2
         liste_erreur.append(f_erreur)
     return (liste_erreur)
 
+def test():
+    liste_poids=[0.9780739719902576, -0.22117172174350075]
+    liste_data=[0.07755742352567485, 0.09655479232859454]
+    z=liste_poids[0]*liste_data[0]+liste_poids[1]*liste_data[1]+b
+    z_sig=sigmoid(z)
+    erreur=(1-z_sig)**2
+    return(erreur)
+    
 
-
-#print("Data_set : ",data_set())
-#print("Poids : ",poids())
 if __name__=="__main__":
+    
+    print("Data_set : ",data_set())
+    print("Poids : ",poids())
     print("somme_data_poids(): ",somme_data_poids())
     print("f_complexe() : ",f_complexe())
     print("erreur() : ",erreur())
+    
+    #print(test())
 
 
 
