@@ -1,0 +1,69 @@
+import random
+from math import *
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def simulation(n):
+    assert isinstance(n, int) and n >= 1, "n doit être un entier positif non nul."
+    compteur=0
+    for i in range(n):
+        """Etablissement des coordonées des n points de façon aléatoire"""            
+        x=random.uniform(-1,1) 
+        y=random.uniform(-1,1)
+        """Formule : cos²(x)+sin²(x)=1, utilisée pour vérifier si le point est dans le cercle ou en dehors"""
+        if x**2 + y**2 <=1:
+            compteur+=1
+    return(4*(compteur/n))
+
+
+
+n=int(input("Entrez nombre de points: "))
+print("Proportion de point dans le cercle unité multiplié par 4 : ", simulation(n))
+
+
+
+"""Exécution x100 de la fonction simulation(1000)"""
+resultats = []
+for i in range(100):
+    result = simulation(1000)
+    resultats.append(result)
+    print("Estimation", i+1, "de pi :", result)
+moyenne = sum(resultats) / len(resultats)
+assert isinstance(n, int) and n >= 1, """n doit être un entier positif non nul."""
+assert result >= 1, """result doit être un entier positif non nul."""
+
+
+
+"""Moyenne avec la somme des resultats de liste divisée par le nombre d'élément de la liste"""
+print("Estimation moyenne de pi :", moyenne)
+
+
+"""Etablissement du rectangle associé au cercle"""
+x_rectangle = [-1,-1,1,1,-1]
+y_rectangle = [-1,1,1,-1,-1]
+plt.plot(x_rectangle, y_rectangle)
+
+"""Etablissement du cercle unité"""
+"""Parcourt toutes les valeurs de 0 à 2pi"""
+a=np.linspace(0,2*np.pi,100)  
+x=np.cos(a)
+y=np.sin(a)
+plt.plot(x,y)
+plt.axis("scaled")
+
+for i in range(n):
+    """Etablissement point aléatoire dans le graphique"""
+    x_point=np.random.uniform(-1, 1)
+    y_point= np.random.uniform(-1, 1)
+    cercle_condition = x_point**2 + y_point**2 <= 1
+    if cercle_condition==True:
+        """Coloriage des points dans le cercle en rouge"""
+        plt.scatter(x_point, y_point, color='red')
+    else:
+        """Coloriage des points en dehors du cercle en bleu"""
+        plt.scatter(x_point, y_point, color='blue')
+        plt.plot(x_point,y_point)
+plt.title('Cercle unité avec les points tirés au hasard')
+plt.show()
+Résultats o
