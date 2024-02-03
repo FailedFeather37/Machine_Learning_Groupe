@@ -1,6 +1,6 @@
-﻿import matplotlib.pyplot as plt
-from deriv import liste_learn
+import matplotlib.pyplot as plt
+from deriv_maths import calcliste
 
-plt.plot([liste_learn()])
+plt.plot(calcliste())
 plt.ylabel('some numbers')
 plt.show()
