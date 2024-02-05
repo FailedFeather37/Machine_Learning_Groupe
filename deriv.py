@@ -87,10 +87,11 @@ if __name__=="__main__":
     neg=Variable(-1)
     z_neg=z*neg
     sig_value1=Variable(1)
-    z_sig= sig_value1 / (sig_value1 + z_neg.exp())
+    z_sig= sig_value1 / (sig_value1 + z_neg.exp()) #gradiant sigmoid
 
     pui=Variable(2)
-    e = (sig_value1 - z_sig)**pui
+    cible_object=Variable(liste_max_cible[0])
+    e = (cible_object - z_sig)**pui #gradiant erreur
     de_dw1=calcul_gradiant(e,w1_g)
     de_dw2=calcul_gradiant(e,w2_g)
     de_db=calcul_gradiant(e,b_g)
@@ -102,6 +103,7 @@ if __name__=="__main__":
     e = (z - liste_max_cible[0])**2
     ecart_e=e
     print(liste_max_cible)
+    
     compt=0
     for i in range(5):
         w1 = w1-learning_rate*de_dw1

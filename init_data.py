@@ -129,20 +129,19 @@ liste_data=data_set()
 liste_poids=poids()
 
 if __name__=="__main__":
-    print("Data_set : ",liste_data)
-    print("Poids : ",liste_poids)
-    print("somme_data_poids(): ",somme_data_poids(liste_data,liste_poids))
+    print("data_set() : ",liste_data)
+    print("poids() : ",liste_poids)
+    print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data,liste_poids))
     
     
 somme=somme_data_poids(liste_data,liste_poids)
-#print("f_complexe() : ",f_complexe(somme))
+print("f_complexe(somme) : ",f_complexe(somme))
     
 liste_cible=cible(liste_data)
 
 liste_max_cible=paire_cible(liste_cible)
-#print("erreur() : ",erreur(liste_max_cible))
+print("erreur(liste_max_cible) : ",erreur(liste_max_cible))
 erreur=erreur(liste_max_cible)
-print(liste_max_cible)
 
     
     
