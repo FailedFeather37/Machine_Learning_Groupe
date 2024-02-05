@@ -1,4 +1,4 @@
-﻿from init_data import *
+from init_data import *
 from math import *
 
 
@@ -44,8 +44,7 @@ class Variable:
 
     def exp(self):
         exp_value=exp(self.value)
-        gradiant=[(self,self.value)]
-        """exp(self.value)"""
+        gradiant=[(self,exp(self.value))]
         h = Variable(exp_value,gradiant)
         return h
 
@@ -66,21 +65,11 @@ def calcul_gradiant(variable,rapport):
 
 
 if __name__=="__main__":
-    """
-    a = Variable(3)
-    b = Variable(5)
-    d = a*(a+b)
-
-    """
     learning_rate=0.3
     EPOCHS=20
-
-    z=f_complexe()
-    #liste_poids=poids()
-    #liste_data=data_set()
-    liste_data= [0.77755742352567485, 0.89655479232859454]
-    liste_poids= [0.9780739719902576, 0.22117172174350075]
-    cible=[0,0]
+    z=f_complexe(somme)
+    
+    
     x1=liste_data[0]
     x2=liste_data[1]
     w1=liste_poids[0]
@@ -95,10 +84,8 @@ if __name__=="__main__":
 
 
     z=x1_g*w1_g+x2_g*w2_g + b_g
-    #print(z)
     neg=Variable(-1)
     z_neg=z*neg
-    #print(z_neg)
     sig_value1=Variable(1)
     z_sig= sig_value1 / (sig_value1 + z_neg.exp())
 
@@ -112,26 +99,30 @@ if __name__=="__main__":
 
     liste_learn=[]
     z=x1*w1+x2*w1+b
-    e = (0 - z)**2
+    e = (z - liste_max_cible[0])**2
     ecart_e=e
-
-    for i in range(10):
-        #print(de_dw1*de_dx1+de_dw2*de_dx2+de_db,"derive w") #mettre calcul_gradiant dans la boucle ?
+    print(liste_max_cible)
+    compt=0
+    for i in range(5):
         w1 = w1-learning_rate*de_dw1
         w2 = w2-learning_rate*de_dw2
         b = b-learning_rate*de_db
 
         print(w1,w2,b,e)
         z=x1*w1+x2*w1+b
-        e = (cible[0] - z)**2 #calcul nouvelle erreur
-        """
+        z=sigmoid(z)
+        
+        e = (z - liste_max_cible[i])**2 #mise à jour de l'erreur (y' - y)**2
+        
         if e>ecart_e:
             break
-        """
+        
         ecart_e=e
         liste_learn.append(e)
         test=sigmoid(x1*w1+x2*w2+b)
-        print("estimation :",test) #sens inverse ?
+        compt+=1
+        print("estimation :",test,compt)
+        
 
     """ calcul min des erreurs
     min=liste_learn[0]
@@ -142,4 +133,3 @@ if __name__=="__main__":
     """
     #print(w1,w2,e)
     #print(liste_learn)
-
