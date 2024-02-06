@@ -2,7 +2,7 @@ import math
 import random
 
 b= 1
-n=40
+n=10
 
 
 def sigmoid(x):
@@ -29,8 +29,8 @@ def data_set():
 
 def poids():
     l=[]
-    for i in range(n):
-        w= random.uniform(0,10)
+    for i in range(2):
+        w= random.uniform(-1,1)
         l.append(w)
     return(l)
 
@@ -75,29 +75,30 @@ def paire_cible(liste_cible):
 def somme_data_poids(liste_data,liste_poids):
     a=0
     compt=1
+    comptw=0
     paire=0
     liste_paire=[]
+    ite=0
     for i in range(n):
-        produit=liste_poids[i]*liste_data[i]
-        #print('produit {:d} : '.format(compt), produit,paire)
+        produit=liste_poids[comptw]*liste_data[i]
         if paire!=2:
             a+=produit
         else:
             liste_paire.append(a)
-            a=liste_poids[i]*liste_data[i]
+            a=liste_poids[comptw]*liste_data[i]
             paire=0
-
-        if liste_poids[i]*liste_poids[i]==liste_poids[-1]*liste_poids[-1] and paire==1:
+        if produit==liste_poids[ite]*liste_data[-1] and paire==1:
             liste_paire.append(a)
 
-        if liste_poids[i]*liste_poids[i]==liste_poids[-1]*liste_poids[-1] and paire==0:
+        if produit==liste_poids[ite]*liste_data[-1] and paire==0:
             liste_paire.append(a)
         paire+=1
         compt+=1
-
+        comptw+=1
+        comptw= comptw % 2
+        ite=n-comptw
+        ite=ite %2 
     return(liste_paire)
-
-
 
 #Liste des estimations
 def f_complexe(somme): # changer nom avec estimation
@@ -111,9 +112,9 @@ def f_complexe(somme): # changer nom avec estimation
 
 #Liste des erreurs des estimations
 def erreur(liste_max_cible):
+    a=0
     liste_estimation=f_complexe(somme)
     liste_erreur=[]
-    a=0
     for i in liste_estimation:
         f_erreur=(liste_max_cible[a]-i)**2
         a=+1

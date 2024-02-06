@@ -8,14 +8,14 @@ class Neurone:
         self.poids1=poids1
         self.poids2=poids2
 
-    def prediction(self):
+    def prediction(self): #calcul prediction selon x1 et x2 (class)
         pass
 
-    def apprentissage(self):
+    def apprentissage(self): #derive partiel avec E
         pass
 
 
-def erreur():
+def erreur(): #calcul de l'erreur avec les variables
     pass
 
 """
