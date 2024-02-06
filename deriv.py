@@ -1,6 +1,8 @@
-﻿from init_data import *
+from init_data import *
 from math import *
-
+import matplotlib.pyplot as plt
+from deriv import *
+import numpy as np
 
 class Variable:
     def __init__(self, value,gradiant=()):
@@ -44,8 +46,7 @@ class Variable:
 
     def exp(self):
         exp_value=exp(self.value)
-        gradiant=[(self,self.value)]
-        """exp(self.value)"""
+        gradiant=[(self,exp(self.value))]
         h = Variable(exp_value,gradiant)
         return h
 
@@ -63,24 +64,12 @@ def calcul_gradiant(variable,rapport):
     return(gradiant)
 
 
-
-
 if __name__=="__main__":
-    """
-    a = Variable(3)
-    b = Variable(5)
-    d = a*(a+b)
-
-    """
     learning_rate=0.3
     EPOCHS=20
+    z=f_complexe(somme)
 
-    z=f_complexe()
-    #liste_poids=poids()
-    #liste_data=data_set()
-    liste_data= [0.77755742352567485, 0.89655479232859454]
-    liste_poids= [0.9780739719902576, 0.22117172174350075]
-    cible=[0,0]
+    # boucle qui pour x1 et x2
     x1=liste_data[0]
     x2=liste_data[1]
     w1=liste_poids[0]
@@ -95,15 +84,14 @@ if __name__=="__main__":
 
 
     z=x1_g*w1_g+x2_g*w2_g + b_g
-    #print(z)
     neg=Variable(-1)
     z_neg=z*neg
-    #print(z_neg)
     sig_value1=Variable(1)
-    z_sig= sig_value1 / (sig_value1 + z_neg.exp())
+    z_sig= sig_value1 / (sig_value1 + z_neg.exp()) #gradiant sigmoid
 
     pui=Variable(2)
-    e = (sig_value1 - z_sig)**pui
+    cible_object=Variable(liste_max_cible[0])
+    e = (cible_object - z_sig)**pui #gradiant erreur
     de_dw1=calcul_gradiant(e,w1_g)
     de_dw2=calcul_gradiant(e,w2_g)
     de_db=calcul_gradiant(e,b_g)
@@ -112,34 +100,68 @@ if __name__=="__main__":
 
     liste_learn=[]
     z=x1*w1+x2*w1+b
-    e = (0 - z)**2
-    ecart_e=e
+    e = (z - liste_max_cible[0])**2
+    #print(liste_max_cible)
 
-    for i in range(10):
-        #print(de_dw1*de_dx1+de_dw2*de_dx2+de_db,"derive w") #mettre calcul_gradiant dans la boucle ?
+    compt=0
+    liste_machine_learn=[]
+    for i in range(EPOCHS):
         w1 = w1-learning_rate*de_dw1
         w2 = w2-learning_rate*de_dw2
         b = b-learning_rate*de_db
 
         print(w1,w2,b,e)
         z=x1*w1+x2*w1+b
-        e = (cible[0] - z)**2 #calcul nouvelle erreur
-        """
-        if e>ecart_e:
-            break
-        """
-        ecart_e=e
-        liste_learn.append(e)
-        test=sigmoid(x1*w1+x2*w2+b)
-        print("estimation :",test) #sens inverse ?
+        z=sigmoid(z)
 
-    """ calcul min des erreurs
+        e = (z - liste_max_cible[i])**2 # (y1' - y1)**2
+
+        liste_learn.append(e)
+        machine_learn=sigmoid(x1*w1+x2*w2+b)
+        liste_machine_learn.append(machine_learn)
+        compt+=1
+        print("estimation :",machine_learn,compt)
+    print(liste_learn)
+
+    # calcul min des erreurs
     min=liste_learn[0]
     for i in liste_learn:
         if i<min:
             min=i
-    print(min,"min")
-    """
-    #print(w1,w2,e)
-    #print(liste_learn)
+    print(min)
+    comptmin=0
+    for i in liste_learn:
+        if i==min:
+            print(liste_machine_learn[comptmin])
+            break
+        comptmin+=1
 
+    """
+    x_point=np.linspace(0,20,20)
+
+    y_point=liste_learn
+    plt.plot(x_point,y_point)
+
+
+    plt.ylabel('some numbers')
+    plt.title('m')
+    plt.show()
+    """
+
+"""
+
+change valeur de x1 et x2 a chaque iteration
+boucle for = E
+
+(y1^-y1)²
+(y2^-y2)²  --> E calcul gradiant
+(y3^-y3)²
+(y3^-y3)²
+
+((x1,x2),y1) --> y1^
+
+1. __init__ avec les poids (class)
+2. calcul prediction selon x1 et x2 (class)
+3. calcul de l'erreur avec les variables  ( dans main)
+4. apprentissage avec E (class)
+"""
