@@ -1,4 +1,4 @@
-﻿from init_data import *
+from init_data import *
 from deriv import *
 from math import *
 
@@ -13,7 +13,7 @@ class Neurone:
         neg=Variable(-1)
         neg=Variable(-1)
         sig_value1=Variable(1)
-        pui=Variable(2)
+        
 
         self.x1_g = Variable(x1)
         self.x2_g = Variable(x2)
@@ -21,7 +21,7 @@ class Neurone:
         self.w2_g = Variable (self.w2)
         self.b_g = Variable(self.b)
 
-        z=x1_g*w1_g+x2_g*w2_g + b_g
+        z=self.x1_g*self.w1_g+self.x2_g*self.w2_g + self.b_g
 
         z_neg=z*neg
         #gradient sigmoid
@@ -30,6 +30,7 @@ class Neurone:
         return z_sig
 
     def erreur(self,z_sig,i): #3 calcul de l'erreur avec les variables
+        pui=Variable(2)
         cible_object=Variable(liste_max_cible[i])
         #gradient erreur
         e = (cible_object - z_sig)**pui
@@ -37,7 +38,7 @@ class Neurone:
 
 
     def apprentissage(self): #derive partiel avec E
-        liste_e=[]
+        E=0
         print("Estimations class")
         for i in range(n2):
             x1=liste_data[i]
@@ -51,9 +52,9 @@ class Neurone:
 
             #nouvelle méthode
             # dérivées partielles
-            de_dw1=calcul_gradient(e,w1_g)
-            de_dw2=calcul_gradient(e,w2_g)
-            de_db=calcul_gradient(e,b_g)
+            de_dw1=calcul_gradient(e,self.w1_g)
+            de_dw2=calcul_gradient(e,self.w2_g)
+            de_db=calcul_gradient(e,self.b_g)
 
 
             # maj des valeurs avec les gradients
@@ -66,22 +67,26 @@ class Neurone:
             z=sigmoid(z)
 
             e = (z - liste_max_cible[i])**2
-            liste_e.append(self.b)
+            E+=e
 
             print(self.w1,self.w2,self.b,e)
-
-        return liste_e
+        print(E)
+        return 
 
 
 
 if __name__=="__main__":
     neurore=Neurone()
     a=neurore.prediction(liste_data[0],liste_data[1])
-    #b=neurore.erreur(a,2)
-    print(neurore.apprentissage())
+    for i in range(1):
+        neurore.apprentissage()
+    
 
 
 """
+
+faire analyse
+
 methode pour derive partielle et calcul de l'erreur
 """
 """

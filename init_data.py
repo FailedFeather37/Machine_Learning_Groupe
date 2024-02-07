@@ -2,7 +2,7 @@ import math
 import random
 
 b= 1
-n=10
+n=20
 
 
 def sigmoid(x):
@@ -30,7 +30,7 @@ def data_set():
 def poids():
     l=[]
     for i in range(2):
-        w= random.uniform(-1,1)
+        w= random.uniform(-10,10)
         l.append(w)
     return(l)
 
@@ -65,8 +65,10 @@ def paire_cible(liste_cible):
     liste_cible=liste_tuple(liste_cible,2)
     cible=[]
     for i in liste_cible:
-        a=max(i)
-        cible.append(a)
+        if i[0]+i[1]==2:
+            cible.append(1)
+        else:
+            cible.append(0)
     return cible
 
 
@@ -132,16 +134,16 @@ liste_poids=poids()
 if __name__=="__main__":
     print("data_set() : ",liste_data)
     print("poids() : ",liste_poids)
-    print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data,liste_poids))
+    #print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data,liste_poids))
 
 
 somme=somme_data_poids(liste_data,liste_poids)
-print("f_complexe(somme) : ",f_complexe(somme))
+#print("f_complexe(somme) : ",f_complexe(somme))
 
 liste_cible=cible(liste_data)
 
 liste_max_cible=paire_cible(liste_cible)
-print("erreur(liste_max_cible) : ",erreur(liste_max_cible))
+#print("erreur(liste_max_cible) : ",erreur(liste_max_cible))
 erreur=erreur(liste_max_cible)
 
 
