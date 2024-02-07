@@ -39,7 +39,7 @@ class Neurone:
 
     def apprentissage(self): #derive partiel avec E
         E=0
-        print("Estimations class")
+        #print("Estimations class")
         for i in range(n2):
             x1=liste_data[i]
             x2=liste_data[i:i+1]
@@ -69,18 +69,26 @@ class Neurone:
             e = (z - liste_max_cible[i])**2
             E+=e
 
-            print(self.w1,self.w2,self.b,e)
-        print(E)
-        return 
+            #print(self.w1,self.w2,self.b,e)
+        
+        return E 
 
 
 
 if __name__=="__main__":
     neurore=Neurone()
-    a=neurore.prediction(liste_data[0],liste_data[1])
-    for i in range(1):
-        neurore.apprentissage()
-    
+    #a=neurore.prediction(liste_data[0],liste_data[1])
+    liste_E=[]
+    for i in range(10000):
+        a=neurore.apprentissage()
+        liste_E.append(a)
+        
+    x_points=np.linspace(0,10000,10000)
+    plt.plot(x_points,liste_E)
+    plt.ylabel('erreurs')
+    plt.title('Evolution de l\'erreur E des '
+    'estimations en fonction du nombre d\'estimations')
+    plt.show()
 
 
 """

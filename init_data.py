@@ -1,9 +1,6 @@
 import math
 import random
 
-b= 1
-n=20
-
 
 def sigmoid(x):
     sig = 1 / (1 + math.exp(-x))
@@ -26,11 +23,10 @@ def data_set():
      return(l)
 
 
-
 def poids():
     l=[]
     for i in range(2):
-        w= random.uniform(-10,10)
+        w= random.uniform(0,10)
         l.append(w)
     return(l)
 
@@ -128,12 +124,15 @@ def erreur(liste_max_cible):
 #liste_data=[0.2650378378515823, 0.9747940579528501, 0.30093636456233563, 0.15625866394225896, 0.9191197177833633, 0.005728140291855532]
 #liste_poids=[0.5458182081873952, 0.7677241560346579, 0.6428221785941135, 0.09596345818777541, 0.3203503233887256, 0.6664673063819693]
 
+b= 1
+n=100
 liste_data=data_set()
 liste_poids=poids()
 
 if __name__=="__main__":
     print("data_set() : ",liste_data)
     print("poids() : ",liste_poids)
+    print(paire_cible(cible(liste_data)))
     #print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data,liste_poids))
 
 

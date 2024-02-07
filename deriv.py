@@ -66,14 +66,16 @@ def calcul_gradient(variable,rapport):
 
 
 n2=int(n/2)
-learning_rate=0.3
+learning_rate=0.4
+liste_learn=[]
+EPOCHS=n2
 if __name__=="__main__":
 
     
     liste_machine_learn=[]
-    liste_learn=[]
     
-    EPOCHS=n2
+    
+    
     z=f_complexe(somme)
     w1=liste_poids[0]
     w2=liste_poids[1]
@@ -126,7 +128,7 @@ if __name__=="__main__":
         e = (z - liste_max_cible[i])**2
         liste_learn.append(e)
 
-        print(w1,w2,b,e)
+        #print(w1,w2,b,e)
     #print(liste_learn)
 
 
@@ -136,9 +138,9 @@ if __name__=="__main__":
 #print(E)
 
 """
-x_point=np.linspace(0,1,n2)
+#x_point=np.linspace(0,1,n2)
 y_point=liste_learn
-plt.plot(x_point,y_point)
+plt.plot(y_point)
 plt.ylabel('erreurs')
 plt.title('Evolution de l\'erreur des '
 'estimations en fonction du nombre d\'estimations')
