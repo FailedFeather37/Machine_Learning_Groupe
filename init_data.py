@@ -23,6 +23,15 @@ def data_set():
      return(l)
 
 
+#nouvelle données pour analyse
+def data_analyse():
+     l=[]
+     for i in range(n):
+        x = random.uniform(0,1)
+        l.append(x)
+     return(l)
+
+
 def poids():
     l=[]
     for i in range(2):
@@ -95,7 +104,7 @@ def somme_data_poids(liste_data,liste_poids):
         comptw+=1
         comptw= comptw % 2
         ite=n-comptw
-        ite=ite %2 
+        ite=ite %2
     return(liste_paire)
 
 #Liste des estimations
@@ -124,6 +133,7 @@ def erreur(liste_max_cible):
 #liste_data=[0.2650378378515823, 0.9747940579528501, 0.30093636456233563, 0.15625866394225896, 0.9191197177833633, 0.005728140291855532]
 #liste_poids=[0.5458182081873952, 0.7677241560346579, 0.6428221785941135, 0.09596345818777541, 0.3203503233887256, 0.6664673063819693]
 
+
 b= 1
 n=100
 liste_data=data_set()
@@ -132,7 +142,7 @@ liste_poids=poids()
 if __name__=="__main__":
     print("data_set() : ",liste_data)
     print("poids() : ",liste_poids)
-    print(paire_cible(cible(liste_data)))
+    #print(paire_cible(cible(liste_data)))
     #print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data,liste_poids))
 
 
@@ -140,11 +150,9 @@ somme=somme_data_poids(liste_data,liste_poids)
 #print("f_complexe(somme) : ",f_complexe(somme))
 
 liste_cible=cible(liste_data)
-
 liste_max_cible=paire_cible(liste_cible)
 #print("erreur(liste_max_cible) : ",erreur(liste_max_cible))
 erreur=erreur(liste_max_cible)
-
 
 
 

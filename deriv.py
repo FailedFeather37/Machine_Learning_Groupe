@@ -65,17 +65,15 @@ def calcul_gradient(variable,rapport):
 
 
 
+
 n2=int(n/2)
 learning_rate=0.4
 liste_learn=[]
-EPOCHS=n2
+
 if __name__=="__main__":
 
-    
     liste_machine_learn=[]
-    
-    
-    
+
     z=f_complexe(somme)
     w1=liste_poids[0]
     w2=liste_poids[1]
@@ -84,8 +82,7 @@ if __name__=="__main__":
     sig_value1=Variable(1)
     pui=Variable(2)
 
-
-    for i in range(EPOCHS):
+    for i in range(n2):
 
     # boucle qui pour x1 et x2
         x1=liste_data[i]
@@ -146,4 +143,3 @@ plt.title('Evolution de l\'erreur des '
 'estimations en fonction du nombre d\'estimations')
 plt.show()
 """
-

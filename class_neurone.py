@@ -1,4 +1,4 @@
-from init_data import *
+﻿from init_data import *
 from deriv import *
 from math import *
 
@@ -9,11 +9,12 @@ class Neurone:
         self.w2=liste_poids[1]
         self.b=b
 
-    def prediction(self,x1,x2): #2 calcul prediction selon x1 et x2 (class)
+    #2 calcul prediction selon x1 et x2 (class)
+    def prediction(self,x1,x2):
         neg=Variable(-1)
         neg=Variable(-1)
         sig_value1=Variable(1)
-        
+
 
         self.x1_g = Variable(x1)
         self.x2_g = Variable(x2)
@@ -29,21 +30,22 @@ class Neurone:
 
         return z_sig
 
-    def erreur(self,z_sig,i): #3 calcul de l'erreur avec les variables
+    #3 calcul de l'erreur avec les variables
+    def erreur(self,z_sig,i):
         pui=Variable(2)
         cible_object=Variable(liste_max_cible[i])
         #gradient erreur
         e = (cible_object - z_sig)**pui
         return e
 
-
-    def apprentissage(self): #derive partiel avec E
+     #derive partiel avec E
+    def apprentissage(self):
         E=0
         #print("Estimations class")
+        #print(self.w1,self.w2)
         for i in range(n2):
             x1=liste_data[i]
-            x2=liste_data[i:i+1]
-            x2=x2[0]
+            x2=liste_data[i+1]
             self.x1_g = Variable(x1)
             self.x2_g = Variable(x2)
             z_sig=self.prediction(x1,x2)
@@ -62,33 +64,73 @@ class Neurone:
             self.w2 = self.w2-learning_rate*de_dw2
             self.b = self.b-learning_rate*de_db
 
-            #nouvelle méthode
             z=x1*self.w1+x2*self.w2+b
             z=sigmoid(z)
-
             e = (z - liste_max_cible[i])**2
             E+=e
 
-            #print(self.w1,self.w2,self.b,e)
-        
-        return E 
+            #print(self.w1,self.w2,self.b,e,z)
 
+        return E
+
+
+    #analyse de l'apprentissage avec un nouveau E et nouvelles datas
+    def analyse(self):
+        E_analyse=0
+        vrai=0
+        for x in range(n2):
+            x1=liste_analyse[x]
+            x2=liste_analyse[x+1]
+
+            z=x1*self.w1+x2*self.w2+b
+            z=sigmoid(z)
+
+            if liste_cible_analyse[x]==0:
+                if x1>0.5 and x2<0.5:
+                    #print("a")
+                    vrai+=1
+                elif x1<0.5 and x2>0.5:
+                    #print("b")
+                    vrai+=1
+                elif x1<0.5 and x2<0.5:
+                    #print("c")
+                    vrai+=1
+            else:
+                if x1>0.5 and x2>0.5:
+                    #print("d")
+                    vrai+=1
+
+            e = (z - liste_max_cible[x])**2
+            E_analyse+=e
+
+        #print(self.w1,self.w2,"a")
+        return E_analyse,vrai
 
 
 if __name__=="__main__":
     neurore=Neurone()
-    #a=neurore.prediction(liste_data[0],liste_data[1])
+    liste_analyse=data_analyse()
     liste_E=[]
-    for i in range(10000):
-        a=neurore.apprentissage()
-        liste_E.append(a)
-        
-    x_points=np.linspace(0,10000,10000)
+    liste_cible_analyse=paire_cible(cible(liste_analyse))
+    for i in range(1000):
+        learn=neurore.apprentissage()
+        liste_E.append(learn)
+    #print(liste_E)
+
+    analyse,vrai=neurore.analyse()
+    print(analyse)
+    #print(analyse,vrai)
+
+
+
+    x_points=np.linspace(0,1000,1000)
     plt.plot(x_points,liste_E)
     plt.ylabel('erreurs')
     plt.title('Evolution de l\'erreur E des '
     'estimations en fonction du nombre d\'estimations')
     plt.show()
+
+
 
 
 """
@@ -163,7 +205,7 @@ for i in range(EPOCHS):
     b = b-learning_rate*de_db
 """
 
-""" optionnel
+""" optionnel (calculs valeurs)
     #recalcul des valeurs pour listage et modélisation
     z=x1*w1+x2*w1+b
     z=sigmoid(z)
