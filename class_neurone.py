@@ -45,7 +45,8 @@ class Neurone:
         #print(self.w1,self.w2)
         for i in range(n2):
             x1=liste_data[i]
-            x2=liste_data[i+1]
+            x2=liste_data[i:i+1]
+            x2=x2[0]
             self.x1_g = Variable(x1)
             self.x2_g = Variable(x2)
             z_sig=self.prediction(x1,x2)
@@ -80,7 +81,8 @@ class Neurone:
         vrai=0
         for x in range(n2):
             x1=liste_analyse[x]
-            x2=liste_analyse[x+1]
+            x2=liste_analyse[x:x+1]
+            x2=x2[0]
 
             z=x1*self.w1+x2*self.w2+b
             z=sigmoid(z)
@@ -108,11 +110,12 @@ class Neurone:
 
 
 if __name__=="__main__":
+    EPOCHS=100
     neurore=Neurone()
     liste_analyse=data_analyse()
     liste_E=[]
     liste_cible_analyse=paire_cible(cible(liste_analyse))
-    for i in range(1000):
+    for i in range(EPOCHS):
         learn=neurore.apprentissage()
         liste_E.append(learn)
     #print(liste_E)
@@ -123,8 +126,8 @@ if __name__=="__main__":
 
 
 
-    x_points=np.linspace(0,1000,1000)
-    plt.plot(x_points,liste_E)
+    #x_points=np.linspace(0,1000,1000)
+    plt.plot(liste_E)
     plt.ylabel('erreurs')
     plt.title('Evolution de l\'erreur E des '
     'estimations en fonction du nombre d\'estimations')
