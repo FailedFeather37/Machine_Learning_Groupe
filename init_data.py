@@ -142,7 +142,7 @@ liste_poids=poids()
 if __name__=="__main__":
     print("data_set() : ",liste_data)
     print("poids() : ",liste_poids)
-    #print(paire_cible(cible(liste_data)))
+    print(paire_cible(cible(liste_data)))
     #print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data,liste_poids))
 
 
