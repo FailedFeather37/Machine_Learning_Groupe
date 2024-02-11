@@ -1,5 +1,7 @@
 import math
 import random
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def sigmoid(x):
@@ -22,6 +24,22 @@ def data_set():
         l.append(x)
      return(l)
 
+"""
+def affichage(liste_data):
+    liste_x1=[]
+    liste_x2=[]
+    for i in range(n2):
+        x1=liste_data[i]
+        x2=liste_data[i:i+1]
+        x2=x2[0]
+        liste_x1.append(x1)
+        liste_x2.append(x2)
+    x_point=np.linspace(0,len(liste_max_cible),len(liste_max_cible))
+    plt.scatter(x_point,liste_max_cible)
+    plt.show()
+"""        
+
+
 
 #nouvelle données pour analyse
 def data_analyse():
@@ -38,43 +56,6 @@ def poids():
         w= random.uniform(0,10)
         l.append(w)
     return(l)
-
-
-def cible(liste_data):
-    y_cible=[]
-    compt=0
-    liste_cible=[]
-    for i in liste_data:
-        if i<0.5:
-            x1=0
-            liste_cible.append(x1)
-        else:
-            x2=1
-            liste_cible.append(x2)
-    return(liste_cible)
-
-
-def liste_tuple(ma_liste, taille_tuple):
-    liste_de_tuples = []
-
-    for i in range(0, len(ma_liste), taille_tuple):
-        sous_liste = ma_liste[i:i + taille_tuple]
-        tuple_courant = tuple(sous_liste)
-        liste_de_tuples.append(tuple_courant)
-
-    return liste_de_tuples
-
-
-
-def paire_cible(liste_cible):
-    liste_cible=liste_tuple(liste_cible,2)
-    cible=[]
-    for i in liste_cible:
-        if i[0]+i[1]==2:
-            cible.append(1)
-        else:
-            cible.append(0)
-    return cible
 
 
 # fonction permettant de faire f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
@@ -128,6 +109,67 @@ def erreur(liste_max_cible):
         liste_erreur.append(f_erreur)
     return (liste_erreur)
 
+def cible(liste_data):
+    y_cible=[]
+    compt=0
+    liste_cible=[]
+    for i in liste_data:
+        if i<0.5:
+            x1=0
+            liste_cible.append(x1)
+        else:
+            x2=1
+            liste_cible.append(x2)
+    return(liste_cible)
+
+
+def liste_tuple(liste, taille_tuple):
+    liste_de_tuples = []
+
+    for i in range(0, len(liste), taille_tuple):
+        sous_liste = liste[i:i + taille_tuple]
+        tuple_courant = tuple(sous_liste)
+        liste_de_tuples.append(tuple_courant)
+
+    return liste_de_tuples
+
+
+
+def paire_cible(liste_cible):
+    liste_cible=liste_tuple(liste_cible,2)
+    cible=[]
+    compt1=0
+    compt0=0
+    for i in liste_cible:
+        if i[0]+i[1]==2:
+            cible.append(1)
+            compt1+=1
+        else:
+            cible.append(0)
+            compt0+=1
+    return cible
+
+
+def comptage(liste_cible):
+    liste_cible=liste_tuple(liste_cible,2)
+    cible=[]
+    compt1=0
+    compt0=0
+    for i in liste_cible:
+        if i[0]+i[1]==2:
+            cible.append(1)
+            compt1+=1
+        else:
+            cible.append(0)
+            compt0+=1
+    return compt0,compt1
+
+
+def equilibre(liste_max_cible): #reequilibrer x1 et x2
+    nbr0,nbr1=comptage(liste_cible)
+    perc0=nbr0*100/len(liste_max_cible)
+    perc1=nbr1*100/len(liste_max_cible)
+    return (perc0,perc1) 
 
 # laisser si test avec des valeurs fixes
 #liste_data=[0.2650378378515823, 0.9747940579528501, 0.30093636456233563, 0.15625866394225896, 0.9191197177833633, 0.005728140291855532]
@@ -136,6 +178,7 @@ def erreur(liste_max_cible):
 
 b= 1
 n=100
+n2=int(n/2)
 liste_data=data_set()
 liste_poids=poids()
 
@@ -153,15 +196,6 @@ liste_cible=cible(liste_data)
 liste_max_cible=paire_cible(liste_cible)
 #print("erreur(liste_max_cible) : ",erreur(liste_max_cible))
 erreur=erreur(liste_max_cible)
-
-
-
-
-
-
-
-
-
-
-
-
+print(comptage(liste_cible))
+print(equilibre(liste_max_cible))
+#print(affichage(liste_data)) 

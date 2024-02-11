@@ -7,7 +7,7 @@ from tqdm import tqdm
 import numpy as np
 
 
-n2=int(n/2)
+
 learning_rate=0.2
 liste_learn=[]
 EPOCHS=1000
@@ -62,7 +62,7 @@ class Neurone:
             x2=x2[0]
             self.x1_g = Variable(x1)
             self.x2_g = Variable(x2)
-            z_sig=self.prediction(x1,x2)
+            z_sig = self.prediction(x1,x2)
             e = self.erreur(z_sig,i)
             # boucle pour x1 et x2
 
@@ -106,7 +106,7 @@ class Neurone:
             #calcul erreur de l'analyse
             e = (z - liste_max_cible[x])**2
             
-            if z >=0.8: #erreur ?
+            if z >=0.5: 
                 y_liste.append(1)
             else:
                 y_liste.append(0) 
