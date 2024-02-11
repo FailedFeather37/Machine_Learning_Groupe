@@ -109,6 +109,7 @@ def erreur(liste_max_cible):
         liste_erreur.append(f_erreur)
     return (liste_erreur)
 
+
 def cible(liste_data):
     y_cible=[]
     compt=0
@@ -165,11 +166,25 @@ def comptage(liste_cible):
     return compt0,compt1
 
 
-def equilibre(liste_max_cible): #reequilibrer x1 et x2
+def perc(liste_max_cible): #reequilibrer x1 et x2
     nbr0,nbr1=comptage(liste_cible)
-    perc0=nbr0*100/len(liste_max_cible)
-    perc1=nbr1*100/len(liste_max_cible)
+    perc0=int(nbr0*100/len(liste_max_cible))
+    perc1=int(nbr1*100/len(liste_max_cible))
     return (perc0,perc1) 
+
+def sur_echantillonage(liste_data):
+    _,perc1=perc(liste_max_cible)
+    liste_cible_maj=liste_max_cible
+    for i in range(5):
+        for i in range(n):
+            for i in range(2):
+                x = random.uniform(0.5,1)
+                liste_data.append(x)
+            liste_cible_maj.append(1)
+            _,perc1=perc(liste_cible_maj)
+        print(perc1)
+        #print(liste_cible_maj)
+    return(None)
 
 # laisser si test avec des valeurs fixes
 #liste_data=[0.2650378378515823, 0.9747940579528501, 0.30093636456233563, 0.15625866394225896, 0.9191197177833633, 0.005728140291855532]
@@ -177,17 +192,17 @@ def equilibre(liste_max_cible): #reequilibrer x1 et x2
 
 
 b= 1
-n=100
+n=100 
 n2=int(n/2)
 liste_data=data_set()
 liste_poids=poids()
 
 if __name__=="__main__":
-    print("data_set() : ",liste_data)
-    print("poids() : ",liste_poids)
-    print(paire_cible(cible(liste_data)))
+    #print("data_set() : ",liste_data)
+    #print("poids() : ",liste_poids)
+    #print(paire_cible(cible(liste_data)))
     #print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data,liste_poids))
-
+    k=1
 
 somme=somme_data_poids(liste_data,liste_poids)
 #print("f_complexe(somme) : ",f_complexe(somme))
@@ -197,5 +212,6 @@ liste_max_cible=paire_cible(liste_cible)
 #print("erreur(liste_max_cible) : ",erreur(liste_max_cible))
 erreur=erreur(liste_max_cible)
 print(comptage(liste_cible))
-print(equilibre(liste_max_cible))
-#print(affichage(liste_data)) 
+print(perc(liste_max_cible))
+#print(affichage(liste_data))
+print(sur_echantillonage(liste_data)) 
