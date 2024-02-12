@@ -4,6 +4,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+
+b= 1
+n=10 
+n2=int(n/2)
+
+
 def sigmoid(x):
     sig = 1 / (1 + math.exp(-x))
     return sig
@@ -88,6 +94,7 @@ def somme_data_poids(liste_data,liste_poids):
         ite=ite %2
     return(liste_paire)
 
+
 #Liste des estimations
 def f_complexe(somme): # changer nom avec estimation
      liste_estimation=[]
@@ -95,7 +102,6 @@ def f_complexe(somme): # changer nom avec estimation
         estimation=sigmoid(i+b) # rajout du billet
         liste_estimation.append(estimation)
      return (liste_estimation)
-
 
 
 #Liste des erreurs des estimations
@@ -173,17 +179,23 @@ def perc(liste_max_cible): #reequilibrer x1 et x2
     return (perc0,perc1) 
 
 def sur_echantillonage(liste_data):
-    _,perc1=perc(liste_max_cible)
-    liste_cible_maj=liste_max_cible
-    for i in range(5):
-        for i in range(n):
-            for i in range(2):
-                x = random.uniform(0.5,1)
-                liste_data.append(x)
-            liste_cible_maj.append(1)
-            _,perc1=perc(liste_cible_maj)
-        print(perc1)
-        #print(liste_cible_maj)
+    #liste_cible_maj # [(0,1),(0,0),...]
+    liste_cible_maj=liste_cible
+    perc0,perc1=perc(liste_max_cible)
+    print(perc0,perc1)
+    
+    for i in range(10):
+        x = random.uniform(0.5,1)
+        liste_data.append(x)
+        liste_cible_maj.append(1)
+    liste_echantillon=paire_cible(liste_cible_maj)
+    
+    perc0,perc1=perc(liste_echantillon)
+    print(liste_echantillon)
+    print(perc0,perc1)
+    
+
+
     return(None)
 
 # laisser si test avec des valeurs fixes
@@ -191,9 +203,6 @@ def sur_echantillonage(liste_data):
 #liste_poids=[0.5458182081873952, 0.7677241560346579, 0.6428221785941135, 0.09596345818777541, 0.3203503233887256, 0.6664673063819693]
 
 
-b= 1
-n=100 
-n2=int(n/2)
 liste_data=data_set()
 liste_poids=poids()
 
@@ -208,10 +217,17 @@ somme=somme_data_poids(liste_data,liste_poids)
 #print("f_complexe(somme) : ",f_complexe(somme))
 
 liste_cible=cible(liste_data)
+print(liste_cible,"a")
 liste_max_cible=paire_cible(liste_cible)
+print(liste_max_cible,"init")
+
+liste_cible_maj=liste_cible
+
 #print("erreur(liste_max_cible) : ",erreur(liste_max_cible))
-erreur=erreur(liste_max_cible)
-print(comptage(liste_cible))
-print(perc(liste_max_cible))
+#erreur=erreur(liste_max_cible)
+#print(comptage(liste_cible))
+#print(perc(liste_max_cible))
 #print(affichage(liste_data))
-print(sur_echantillonage(liste_data)) 
+print(sur_echantillonage(liste_data))
+
+

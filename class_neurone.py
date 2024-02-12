@@ -29,8 +29,8 @@ class Neurone:
 
         self.x1_g = Variable(x1)
         self.x2_g = Variable(x2)
-        self.w1_g = Variable (self.w1)
-        self.w2_g = Variable (self.w2)
+        self.w1_g = Variable(self.w1)
+        self.w2_g = Variable(self.w2)
         self.b_g = Variable(self.b)
 
         z=self.x1_g*self.w1_g+self.x2_g*self.w2_g + self.b_g
@@ -140,7 +140,7 @@ if __name__=="__main__":
     plt.plot(x_points,liste_E)
     plt.ylabel('erreurs')
     plt.title('Evolution de l\'erreur E '
-    'en fonction du nombre d\'estimations')
+    'en fonction du nombre des EPOCHS')
     plt.show()
 
 #corriger vrai et equilibrer données
@@ -172,10 +172,5 @@ boucle for = E
 (y3^-y3)²
 (y3^-y3)²
 
-((x1,x2),y1) --> y1^
-
-1. __init__ avec les poids (class)
-2. calcul prediction selon x1 et x2 (class)
-3. calcul de l'erreur avec les variables  ( dans main)
-4. apprentissage avec E (class)
+((x1,x2),y1) --> y1^'
 """
