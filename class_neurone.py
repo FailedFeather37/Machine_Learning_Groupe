@@ -1,16 +1,16 @@
-from init_data import *
+﻿from init_data import *
 from deriv import *
 from math import *
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
-from tqdm import tqdm
+#from tqdm import tqdm
 import numpy as np
 
 
 
 learning_rate=0.2
 liste_learn=[]
-EPOCHS=1000
+EPOCHS=100
 y_learn_liste=[]
 
 
@@ -76,7 +76,7 @@ class Neurone:
             self.w1 = self.w1-learning_rate*de_dw1
             self.w2 = self.w2-learning_rate*de_dw2
             self.b = self.b-learning_rate*de_db
-            
+
             #recalcul des valeurs pour listage et modélisation
             z=x1*self.w1+x2*self.w2+b
             z=sigmoid(z)
@@ -85,11 +85,11 @@ class Neurone:
             e = (z - liste_max_cible[i])**2
             E+=e/EPOCHS
             #print(self.w1,self.w2,self.b,e,z)
-            
+
         #print("Accuracy Score:", accuracy_score(liste_max_cible,y_learn_liste))
         return E
 
-    
+
     #analyse de l'apprentissage avec un nouveau E et nouvelles datas
     def analyse(self):
         E_analyse=0
@@ -100,29 +100,29 @@ class Neurone:
             x2=x2[0]
 
             z=x1*self.w1+x2*self.w2+b
-            
+
             z=sigmoid(z)
-            
+
             #calcul erreur de l'analyse
             e = (z - liste_max_cible[x])**2
-            
-            if z >=0.5: 
+
+            if z >=0.5:
                 y_liste.append(1)
             else:
-                y_liste.append(0) 
-                
-            E_analyse+=e/EPOCHS    
-                
+                y_liste.append(0)
+
+            E_analyse+=e/EPOCHS
+
         #Evaluation de la précision du modèle
         print("Accuracy Score analyse :", accuracy_score(liste_cible_analyse,y_liste))
         print(liste_max_cible)
         print(y_liste)
         return E_analyse
-        
-    
+
+
     def exec(self):
         liste_E=[]
-        for i in tqdm(range(EPOCHS)):
+        for i in (range(EPOCHS)):
             learn=self.apprentissage()
             liste_E.append(learn)
         return liste_E
@@ -132,7 +132,7 @@ if __name__=="__main__":
     neurore=Neurone()
     liste_analyse=data_analyse()
     liste_cible_analyse=paire_cible(cible(liste_analyse))
-    
+
     liste_E=neurore.exec()
     analyse=neurore.analyse()
     print("E de l'analyse :",analyse)
@@ -141,10 +141,10 @@ if __name__=="__main__":
     plt.ylabel('erreurs')
     plt.title('Evolution de l\'erreur E '
     'en fonction du nombre des EPOCHS')
-    plt.show()
+    #plt.show()
 
 #corriger vrai et equilibrer données
-    
+
 
 
 

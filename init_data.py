@@ -6,7 +6,7 @@ import numpy as np
 
 
 b= 1
-n=10 
+n=10
 n2=int(n/2)
 
 
@@ -43,7 +43,7 @@ def affichage(liste_data):
     x_point=np.linspace(0,len(liste_max_cible),len(liste_max_cible))
     plt.scatter(x_point,liste_max_cible)
     plt.show()
-"""        
+"""
 
 
 
@@ -172,29 +172,40 @@ def comptage(liste_cible):
     return compt0,compt1
 
 
-def perc(liste_max_cible): #reequilibrer x1 et x2
+def perc(liste_max_cible,liste_cible): #reequilibrer x1 et x2
     nbr0,nbr1=comptage(liste_cible)
     perc0=int(nbr0*100/len(liste_max_cible))
     perc1=int(nbr1*100/len(liste_max_cible))
-    return (perc0,perc1) 
+    return (perc0,perc1)
+
+
+def perc_paire(liste_max_cible):
+    compt1=0
+    compt0=0
+    for i in liste_max_cible:
+        if i==0:
+            #faire compt + pourcentage
+
 
 def sur_echantillonage(liste_data):
+    #liste_cible,"cible des x1 et x2"
+    #liste_max_cible,"cible des paires"
     #liste_cible_maj # [(0,1),(0,0),...]
+    #liste_cible_max cible des x1 et x2 nouveau
     liste_cible_maj=liste_cible
-    perc0,perc1=perc(liste_max_cible)
-    print(perc0,perc1)
-    
+    perc0,perc1=perc(liste_max_cible,liste_cible)
+    #print(perc0,perc1)
     for i in range(10):
         x = random.uniform(0.5,1)
         liste_data.append(x)
         liste_cible_maj.append(1)
-    liste_echantillon=paire_cible(liste_cible_maj)
-    
-    perc0,perc1=perc(liste_echantillon)
-    print(liste_echantillon)
-    print(perc0,perc1)
-    
 
+    print(liste_cible_maj)
+
+
+    #perc0,perc1=perc(liste_echantillon,liste_cible_maj)
+    #print(liste_echantillon)
+    print(perc0,perc1)
 
     return(None)
 
@@ -217,9 +228,9 @@ somme=somme_data_poids(liste_data,liste_poids)
 #print("f_complexe(somme) : ",f_complexe(somme))
 
 liste_cible=cible(liste_data)
-print(liste_cible,"a")
+print(liste_cible,"cible des x1 et x2")
 liste_max_cible=paire_cible(liste_cible)
-print(liste_max_cible,"init")
+print(liste_max_cible,"cible des paires")
 
 liste_cible_maj=liste_cible
 
@@ -229,5 +240,4 @@ liste_cible_maj=liste_cible
 #print(perc(liste_max_cible))
 #print(affichage(liste_data))
 print(sur_echantillonage(liste_data))
-
 
