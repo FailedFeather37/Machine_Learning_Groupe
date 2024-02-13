@@ -1,4 +1,4 @@
-﻿from init_data import *
+from init_data import *
 from deriv import *
 from math import *
 import matplotlib.pyplot as plt
@@ -45,7 +45,7 @@ class Neurone:
     #3 calcul de l'erreur avec les variables
     def erreur(self,z_sig,i):
         pui=Variable(2)
-        cible_object=Variable(liste_max_cible[i])
+        cible_object=Variable(liste_cible_max[i])
         #gradient erreur
         e = (cible_object - z_sig)**pui
         return e
@@ -82,11 +82,11 @@ class Neurone:
             z=sigmoid(z)
 
             #calcul erreur : (y1' - y1)**2
-            e = (z - liste_max_cible[i])**2
+            e = (z - liste_cible_max[i])**2
             E+=e/EPOCHS
             #print(self.w1,self.w2,self.b,e,z)
 
-        #print("Accuracy Score:", accuracy_score(liste_max_cible,y_learn_liste))
+        #print("Accuracy Score:", accuracy_score(liste_cible_max,y_learn_liste))
         return E
 
 
@@ -104,7 +104,7 @@ class Neurone:
             z=sigmoid(z)
 
             #calcul erreur de l'analyse
-            e = (z - liste_max_cible[x])**2
+            e = (z - liste_cible_max[x])**2
 
             if z >=0.5:
                 y_liste.append(1)
@@ -114,11 +114,11 @@ class Neurone:
             E_analyse+=e/EPOCHS
 
         #Evaluation de la précision du modèle
-        print("Accuracy Score analyse :", accuracy_score(liste_cible_analyse,y_liste))
-        print(liste_max_cible)
+        #print("Accuracy Score analyse :", accuracy_score(liste_cible_analyse,y_liste))
+        print(liste_cible_max)
         print(y_liste)
         return E_analyse
-
+    
 
     def exec(self):
         liste_E=[]
@@ -129,21 +129,22 @@ class Neurone:
 
 
 if __name__=="__main__":
-    neurore=Neurone()
-    liste_analyse=data_analyse()
-    liste_cible_analyse=paire_cible(cible(liste_analyse))
+    
+    #arranger liste_cible_max (equilibre) pour analyse 
+    
+    neurore=Neurone() 
+    #liste_analyse=data_analyse()  ici
+    #liste_cible_analyse=paire_cible(cible(liste_analyse)) ici
 
     liste_E=neurore.exec()
-    analyse=neurore.analyse()
-    print("E de l'analyse :",analyse)
+    #analyse=neurore.analyse() ici
+    #print("E de l'analyse :",analyse) ici
     x_points=np.linspace(0,EPOCHS,EPOCHS)
     plt.plot(x_points,liste_E)
     plt.ylabel('erreurs')
     plt.title('Evolution de l\'erreur E '
     'en fonction du nombre des EPOCHS')
     #plt.show()
-
-#corriger vrai et equilibrer données
 
 
 

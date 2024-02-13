@@ -6,20 +6,13 @@ import numpy as np
 
 
 b= 1
-n=10
+n=4
 n2=int(n/2)
 
 
 def sigmoid(x):
     sig = 1 / (1 + math.exp(-x))
     return sig
-
-# peut changer avec tangente hyperbolique
-def tan_hyperbolique(x):
-     cosh = (math.exp(x) + math.exp(-x)) / 2
-     sinh = (math.exp(x) - math.exp(-x)) / 2
-     tanh = sinh / cosh
-     return tanh
 
 
 def data_set():
@@ -28,34 +21,23 @@ def data_set():
      for i in range(n):
         x = random.uniform(0,1)
         l.append(x)
-     return(l)
-
-"""
-def affichage(liste_data):
-    liste_x1=[]
-    liste_x2=[]
-    for i in range(n2):
-        x1=liste_data[i]
-        x2=liste_data[i:i+1]
-        x2=x2[0]
-        liste_x1.append(x1)
-        liste_x2.append(x2)
-    x_point=np.linspace(0,len(liste_max_cible),len(liste_max_cible))
-    plt.scatter(x_point,liste_max_cible)
-    plt.show()
-"""
-
-
-
-#nouvelle données pour analyse
+     l_pour_somme=l
+     l=liste_tuple(l,2)
+     return(l_pour_somme,l)
+ 
+ 
+#nouvelles données pour analyse
 def data_analyse():
      l=[]
      for i in range(n):
         x = random.uniform(0,1)
         l.append(x)
-     return(l)
+     
+     l=liste_tuple(l,2)
+     return(l) 
 
 
+ 
 def poids():
     l=[]
     for i in range(2):
@@ -64,7 +46,8 @@ def poids():
     return(l)
 
 
-# fonction permettant de faire f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
+
+# fonction permettant de faire le produit scalaire de w et x : f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
 # return une liste avec a chaque fois x1w1+x2w2
 def somme_data_poids(liste_data,liste_poids):
     a=0
@@ -94,45 +77,28 @@ def somme_data_poids(liste_data,liste_poids):
         ite=ite %2
     return(liste_paire)
 
-
-#Liste des estimations
-def f_complexe(somme): # changer nom avec estimation
-     liste_estimation=[]
-     for i in somme:
-        estimation=sigmoid(i+b) # rajout du billet
-        liste_estimation.append(estimation)
-     return (liste_estimation)
-
-
-#Liste des erreurs des estimations
-def erreur(liste_max_cible):
-    a=0
-    liste_estimation=f_complexe(somme)
-    liste_erreur=[]
-    for i in liste_estimation:
-        f_erreur=(liste_max_cible[a]-i)**2
-        a=+1
-        liste_erreur.append(f_erreur)
-    return (liste_erreur)
-
+"""
+def somme_data_poids(liste_data, liste_poids):
+    liste_paire = []
+    for i in range(n):
+        produit = liste_poids[0] * liste_data[i] + liste_poids[1] * liste_data[i]
+        liste_paire.append(produit)
+    return liste_paire
+"""
 
 def cible(liste_data):
-    y_cible=[]
-    compt=0
     liste_cible=[]
     for i in liste_data:
-        if i<0.5:
-            x1=0
-            liste_cible.append(x1)
-        else:
-            x2=1
-            liste_cible.append(x2)
-    return(liste_cible)
+        for j in range(2):
+            if i[j]<0.5:
+                liste_cible.append(0)
+            else:
+                liste_cible.append(1)
+    return (liste_cible)
 
 
 def liste_tuple(liste, taille_tuple):
     liste_de_tuples = []
-
     for i in range(0, len(liste), taille_tuple):
         sous_liste = liste[i:i + taille_tuple]
         tuple_courant = tuple(sous_liste)
@@ -141,12 +107,11 @@ def liste_tuple(liste, taille_tuple):
     return liste_de_tuples
 
 
-
-def paire_cible(liste_cible):
-    liste_cible=liste_tuple(liste_cible,2)
+def cible_somme(liste_cible):
     cible=[]
     compt1=0
     compt0=0
+    liste_cible=liste_tuple(liste_cible,2)
     for i in liste_cible:
         if i[0]+i[1]==2:
             cible.append(1)
@@ -157,87 +122,108 @@ def paire_cible(liste_cible):
     return cible
 
 
-def comptage(liste_cible):
-    liste_cible=liste_tuple(liste_cible,2)
-    cible=[]
+def comptage(liste_cible_max):
     compt1=0
     compt0=0
-    for i in liste_cible:
-        if i[0]+i[1]==2:
-            cible.append(1)
-            compt1+=1
-        else:
-            cible.append(0)
-            compt0+=1
-    return compt0,compt1
-
-
-def perc(liste_max_cible,liste_cible): #reequilibrer x1 et x2
-    nbr0,nbr1=comptage(liste_cible)
-    perc0=int(nbr0*100/len(liste_max_cible))
-    perc1=int(nbr1*100/len(liste_max_cible))
-    return (perc0,perc1)
-
-
-def perc_paire(liste_max_cible):
-    compt1=0
-    compt0=0
-    for i in liste_max_cible:
+    for i in liste_cible_max:
         if i==0:
-            #faire compt + pourcentage
+            compt0+=1
+        else:
+            compt1+=1
+    return (compt0,compt1)
 
 
-def sur_echantillonage(liste_data):
-    #liste_cible,"cible des x1 et x2"
-    #liste_max_cible,"cible des paires"
-    #liste_cible_maj # [(0,1),(0,0),...]
-    #liste_cible_max cible des x1 et x2 nouveau
-    liste_cible_maj=liste_cible
-    perc0,perc1=perc(liste_max_cible,liste_cible)
-    #print(perc0,perc1)
-    for i in range(10):
-        x = random.uniform(0.5,1)
-        liste_data.append(x)
-        liste_cible_maj.append(1)
+#pourcentage de 1 et de 0 dans la liste de cible pour les paires de x1x2
+def perc(liste_cible_max):
+    compt0,compt1=comptage(liste_cible_max)
+    pourc1=int(compt1*100/len(liste_cible_max))
+    pourc0=int(compt0*100/len(liste_cible_max))
+    return pourc0,pourc1
 
-    print(liste_cible_maj)
-
-
-    #perc0,perc1=perc(liste_echantillon,liste_cible_maj)
-    #print(liste_echantillon)
-    print(perc0,perc1)
-
-    return(None)
-
-# laisser si test avec des valeurs fixes
-#liste_data=[0.2650378378515823, 0.9747940579528501, 0.30093636456233563, 0.15625866394225896, 0.9191197177833633, 0.005728140291855532]
-#liste_poids=[0.5458182081873952, 0.7677241560346579, 0.6428221785941135, 0.09596345818777541, 0.3203503233887256, 0.6664673063819693]
+#sur echantillonage des données
+def equilibrage(liste_cible_max,liste_data_pour_somme):
+    pourc0,pourc1=perc(liste_cible_max)
+    while pourc1 !=50 or pourc0!=50:
+        for j in range(2):
+            x = random.uniform(0.5,1)
+            liste_data_pour_somme.append(x)
+        if pourc1 < 50:
+            liste_cible_max.append(1)
+        else:
+            liste_cible_max.append(0)
+        pourc0,pourc1=perc(liste_cible_max)
+    liste_data_pour_somme=liste_tuple(liste_data_pour_somme,2)
+    return (liste_cible_max,liste_data_pour_somme)    
 
 
-liste_data=data_set()
+#Liste des estimations
+def f_complexe(somme):
+     liste_estimation=[]
+     for i in somme:
+        estimation=sigmoid(i+b) # rajout du billet
+        liste_estimation.append(estimation)
+     return (liste_estimation)
+
+
+#Liste des erreurs des estimations
+def erreur(liste_cible_max):
+    a=0
+    liste_estimation=f_complexe(somme)
+    liste_erreur=[]
+    for i in liste_estimation:
+        f_erreur=(liste_cible_max[a]-i)**2
+        a=+1
+        liste_erreur.append(f_erreur)
+    return (liste_erreur)
+
+
+# liste_data_pour_somme --> sans tuple
+# liste_data --> avec tuple
+liste_data_pour_somme,liste_data=data_set()
+print(liste_data_pour_somme,liste_data)
 liste_poids=poids()
 
 if __name__=="__main__":
-    #print("data_set() : ",liste_data)
-    #print("poids() : ",liste_poids)
-    #print(paire_cible(cible(liste_data)))
-    #print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data,liste_poids))
-    k=1
+    print("data_set() : ",liste_data)
+    print("poids() : ",liste_poids)
+    liste_cible=cible(liste_data)
+    print("cible des ET logique (0 ou 1 pour une paire de x1 et x2) :",cible_somme(liste_cible))
+    
+liste_cible_max=cible_somme(liste_cible)
 
-somme=somme_data_poids(liste_data,liste_poids)
-#print("f_complexe(somme) : ",f_complexe(somme))
+print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data_pour_somme,liste_poids))
 
-liste_cible=cible(liste_data)
-print(liste_cible,"cible des x1 et x2")
-liste_max_cible=paire_cible(liste_cible)
-print(liste_max_cible,"cible des paires")
+liste_cible_max,liste_data=equilibrage(liste_cible_max,liste_data_pour_somme)
 
-liste_cible_maj=liste_cible
+print(equilibrage(liste_cible_max,liste_data_pour_somme))
 
-#print("erreur(liste_max_cible) : ",erreur(liste_max_cible))
-#erreur=erreur(liste_max_cible)
-#print(comptage(liste_cible))
-#print(perc(liste_max_cible))
-#print(affichage(liste_data))
-print(sur_echantillonage(liste_data))
+
+
+#print(liste_data_pour_somme,"ah")
+
+somme=somme_data_poids(liste_data_pour_somme,liste_poids)
+print(somme)
+
+print("f_complexe(somme) : ",f_complexe(somme))
+
+print("erreur(liste_cible) : ",erreur(liste_cible))
+
+
+"""
+liste_x1=[]
+liste_x2=[]
+for i in range(n2):
+    x1=liste_data[i]
+    x2=liste_data[i:i+1]
+    x2=x2[0]
+    liste_x1.append(x1)
+    liste_x2.append(x2)
+x_point=np.linspace(0,len(liste_cible_max),len(liste_cible_max))
+plt.scatter(x_point,liste_cible_max)
+plt.show()
+
+
+"""
+
+
 
