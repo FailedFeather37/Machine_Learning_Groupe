@@ -7,4 +7,4 @@ from sklearn.metrics import accuracy_score
 import numpy as np
 
 ```     
-[Class neurone](Machine_Learning_Groupe/class_neurone.py)  
+[Class neurone](docs/Machine_Learning_Groupe/class_neurone.py)  
