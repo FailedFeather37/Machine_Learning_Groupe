@@ -6,7 +6,7 @@ import numpy as np
 
 
 b= 1
-n=4
+n=10
 n2=int(n/2)
 
 
@@ -14,7 +14,7 @@ def sigmoid(x):
     sig = 1 / (1 + math.exp(-x))
     return sig
 
-
+#Génération des données pour l'apprentissage
 def data_set():
      x=0
      l=[]
@@ -24,20 +24,20 @@ def data_set():
      l_pour_somme=l
      l=liste_tuple(l,2)
      return(l_pour_somme,l)
- 
- 
+
+
 #nouvelles données pour analyse
 def data_analyse():
      l=[]
      for i in range(n):
         x = random.uniform(0,1)
         l.append(x)
-     
+     l_pour_somme=l
      l=liste_tuple(l,2)
-     return(l) 
+     return(l_pour_somme,l)
 
 
- 
+
 def poids():
     l=[]
     for i in range(2):
@@ -47,8 +47,7 @@ def poids():
 
 
 
-# fonction permettant de faire le produit scalaire de w et x : f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
-# return une liste avec a chaque fois x1w1+x2w2
+"""
 def somme_data_poids(liste_data,liste_poids):
     a=0
     compt=1
@@ -76,16 +75,18 @@ def somme_data_poids(liste_data,liste_poids):
         ite=n-comptw
         ite=ite %2
     return(liste_paire)
-
 """
+# fonction permettant de faire le produit scalaire de w et x : f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
+# return une liste avec a chaque fois x1w1+x2w2
 def somme_data_poids(liste_data, liste_poids):
     liste_paire = []
     for i in range(n):
         produit = liste_poids[0] * liste_data[i] + liste_poids[1] * liste_data[i]
         liste_paire.append(produit)
     return liste_paire
-"""
 
+
+#ciblage des x1 et x2
 def cible(liste_data):
     liste_cible=[]
     for i in liste_data:
@@ -106,7 +107,7 @@ def liste_tuple(liste, taille_tuple):
 
     return liste_de_tuples
 
-
+#Somme des cible de x1 et x2
 def cible_somme(liste_cible):
     cible=[]
     compt1=0
@@ -140,7 +141,7 @@ def perc(liste_cible_max):
     pourc0=int(compt0*100/len(liste_cible_max))
     return pourc0,pourc1
 
-#sur echantillonage des données
+#sur-echantillonage des données
 def equilibrage(liste_cible_max,liste_data_pour_somme):
     pourc0,pourc1=perc(liste_cible_max)
     while pourc1 !=50 or pourc0!=50:
@@ -153,22 +154,23 @@ def equilibrage(liste_cible_max,liste_data_pour_somme):
             liste_cible_max.append(0)
         pourc0,pourc1=perc(liste_cible_max)
     liste_data_pour_somme=liste_tuple(liste_data_pour_somme,2)
-    return (liste_cible_max,liste_data_pour_somme)    
+    return (liste_cible_max,liste_data_pour_somme)
 
 
 #Liste des estimations
 def f_complexe(somme):
      liste_estimation=[]
      for i in somme:
-        estimation=sigmoid(i+b) # rajout du billet
+        # rajout de l'estimation + le billet
+        estimation=sigmoid(i+b)
         liste_estimation.append(estimation)
      return (liste_estimation)
 
 
 #Liste des erreurs des estimations
-def erreur(liste_cible_max):
+def erreur(liste_cible_max,f_xw):
     a=0
-    liste_estimation=f_complexe(somme)
+    liste_estimation=f_xw
     liste_erreur=[]
     for i in liste_estimation:
         f_erreur=(liste_cible_max[a]-i)**2
@@ -177,53 +179,66 @@ def erreur(liste_cible_max):
     return (liste_erreur)
 
 
+def affichage_point():
+    #Affichage des x1/x2 learn
+    liste_x1=[]
+    liste_x2=[]
+    for i in range(n2):
+        x1=liste_data_pour_somme[i][0]
+        x2=liste_data_pour_somme[i][1]
+        liste_x1.append(x1)
+        liste_x2.append(x2)
+    x_point=np.linspace(0,len(liste_cible_max),len(liste_cible_max))
+    plt.scatter(x_point,liste_cible_max)
+    plt.title("Affichage des points x1 et x2 lors de l'apprentissage")
+    plt.show()
+
+
+#PREPARATION DES DONNEES POUR L'APPPRENTISSAGE
+
 # liste_data_pour_somme --> sans tuple
 # liste_data --> avec tuple
 liste_data_pour_somme,liste_data=data_set()
-print(liste_data_pour_somme,liste_data)
 liste_poids=poids()
-
-if __name__=="__main__":
-    print("data_set() : ",liste_data)
-    print("poids() : ",liste_poids)
-    liste_cible=cible(liste_data)
-    print("cible des ET logique (0 ou 1 pour une paire de x1 et x2) :",cible_somme(liste_cible))
-    
+#cible pour chaque x
+liste_cible=cible(liste_data)
+#cible des ET logique (0 ou 1 pour une paire de x1 et x2)
 liste_cible_max=cible_somme(liste_cible)
-
-print("somme_data_poids(liste_data,liste_poids): ",somme_data_poids(liste_data_pour_somme,liste_poids))
-
+#maj/equilibrage des cibles et de la liste de données
 liste_cible_max,liste_data=equilibrage(liste_cible_max,liste_data_pour_somme)
-
-print(equilibrage(liste_cible_max,liste_data_pour_somme))
-
-
-
-#print(liste_data_pour_somme,"ah")
-
-somme=somme_data_poids(liste_data_pour_somme,liste_poids)
-print(somme)
-
-print("f_complexe(somme) : ",f_complexe(somme))
-
-print("erreur(liste_cible) : ",erreur(liste_cible))
+#produit des données mis à jour et des poids
+somme_learn=somme_data_poids(liste_data_pour_somme,liste_poids)
 
 
-"""
-liste_x1=[]
-liste_x2=[]
-for i in range(n2):
-    x1=liste_data[i]
-    x2=liste_data[i:i+1]
-    x2=x2[0]
-    liste_x1.append(x1)
-    liste_x2.append(x2)
-x_point=np.linspace(0,len(liste_cible_max),len(liste_cible_max))
-plt.scatter(x_point,liste_cible_max)
-plt.show()
+#PREPARATION DES DONNEES POUR L'ANALYSE
+
+#Génération de nouvellles données pour l'analyse
+liste_data_analyse_pour_somme,liste_data_analyse=data_analyse()
+#cible des x des données de l'analyse
+liste_cible_analyse=cible(liste_data_analyse)
+#cible des paires de l'analyse
+liste_cible_max_analyse=cible_somme(liste_cible_analyse)
+#maj/equilibrage des cibles et de la liste de données de l'analyse
+liste_cible_max_analyse,liste_data_analyse=equilibrage(liste_cible_max,liste_data_analyse_pour_somme)
+#produit des données de l'analyse mis à jour et des poids
+somme_analyse=somme_data_poids(liste_data_analyse_pour_somme,liste_poids)
 
 
-"""
+#FONCTION ET ERREURS
+#Learn
+f_xw_learn=f_complexe(somme_learn)
+liste_erreur=erreur(liste_cible_max,f_xw_learn)
+print("f(X,W) learn :",f_xw_learn)
+print("liste d'erreur learn :",liste_erreur)
 
+#Affichage des points pour l'apprentissage
+#print(affichage_point())
+
+
+#Analyse
+f_xw_analyse=f_complexe(somme_analyse)
+liste_erreur_analyse=erreur(liste_cible_max_analyse,f_xw_analyse)
+print("f(X,W) analyse :",f_xw_analyse)
+print("liste d'erreur analyse :",liste_erreur_analyse)
 
 
