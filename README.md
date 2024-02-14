@@ -32,14 +32,12 @@ Construit sur NumPy et matplotlib*)
 
 [Class neurone](https://github.com/FailedFeather37/Machine_Learning_Groupe/blob/0a397561ded2e42dc00f8fee43cbc806317c9726/class_neurone.py1-#L7)
 [class neurone](https://github.com/FailedFeather37/Machine_Learning_Groupe/blob/9a9c0ecfe2ac3bfaa08d6be68b53a4a7c7d66204/class_neurone.py=1#L7)
+# Les contribution 
+Harry (pk il est cool)	
+**Nathan** (ps: il a tous fais)		
+Mael (et moi peut être je sais pas pourquoi)		
 
-```from init_data import *
-from deriv import *
-from math import *
-import matplotlib.pyplot as plt
-from sklearn.metrics import accuracy_score
-from tqdm import tqdm
-import numpy as np
+```Le kilian (pas mal les bzez de ca cousine)
 
 ```     
 [Class neurone](docs/Machine_Learning_Groupe/class_neurone.py)  
