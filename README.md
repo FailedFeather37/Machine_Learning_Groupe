@@ -1,5 +1,6 @@
 Le machine learning
-Table des matières:
+La table des matières
+#Le 
 
 
 
@@ -9,20 +10,19 @@ Table des matières:
 
 
 
-
-Les bibliothèque utilisé:
-Matplotlib
-Scikit-learn
-math
-tqdm(taqaddum)
-numpy
-
-
-Comment utiliser le neurone:
-
+Les bibliothèque utilisé:  
+Matplotlib  
+Scikit-learn  
+math  
+tqdm(taqaddum)  
+numpy  
+  
+  
+Comment utiliser le neurone:  
 
 
-La class neurone:
+
+La class neurone:  
 
 
 
