@@ -1,29 +1,26 @@
-Le machine learning
-La table des matières
-#Le 
+# LE MACHINE LEARNING
+Le projet que l'on propose permet tous d'abord la création d'un neurone qui a pour but d'apprendre et poffiné son niveau d'erreur
+ 
+# Les bibliothèques utilisés 
 
 
+|**Bibliothèque**| description |
+|---------------:|-----------|
+|Matplotlib      | *destinée à tracer et visualiser des données sous forme de graphiques. Elle peut être combinée avec les bibliothèques python de calcul scientifique comme NumPy*|
+|Scikit-learn    |*pour l'analyse prédictive de données réutilisables dans différents contextes construit sur NumPy et matplotlib*|
+|math            | *qui permet d'avoir des fonctions mathématiques suplémentaire*       |
+|tqdm        | JavaScript|
+|numpy| *permet d’effectuer des calculs numériques avec Python. Elle introduit une gestion facilitée des tableaux de nombres.*    |
+|random       | SQL       |
 
-
-
-
-
-
-
-Les bibliothèque utilisé:  
-Matplotlib  
-Scikit-learn  
-math  
-tqdm(taqaddum)  
-numpy  
-  
-  
-Comment utiliser le neurone:  
-
-
-
-La class neurone:  
-
+**Matplotlib**  (*destinée à tracer et visualiser des données sous forme de graphiques. Elle peut être combinée avec les bibliothèques python de calcul scientifique comme NumPy*) 	
+**Scikit-learn**  (*pour l'analyse prédictive de données réutilisables dans différents contextes
+Construit sur NumPy et matplotlib*) 	
+**math**  (*qui permet d'avoir des fonction mathématiques suplémentaire*) 	
+**tqdm** (*taqaddum*) 	
+**numpy** (*permet d’effectuer des calculs numériques avec Python. Elle introduit une gestion facilitée des tableaux de nombres.*) 	
+**random** (*une fonction permettant de produire des nombres aléatoires*) 	
+# Documentation
 
 
 
