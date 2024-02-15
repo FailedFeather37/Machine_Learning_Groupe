@@ -6,7 +6,7 @@ import numpy as np
 
 
 b= 1
-n=10
+n=100
 n2=int(n/2)
 
 
@@ -143,13 +143,12 @@ def perc(liste_cible_max):
 
 #sur-echantillonage des données
 def equilibrage(liste_cible_max,liste_data_pour_somme):
-    global n2
+    global j
     pourc0,pourc1=perc(liste_cible_max)
     while pourc1 !=50 or pourc0!=50:
         for j in range(2):
             x = random.uniform(0.5,1)
-            liste_data_pour_somme.append(x)
-        n2+=1    
+            liste_data_pour_somme.append(x)  
         if pourc1 < 50:
             liste_cible_max.append(1)
         else:
@@ -197,8 +196,8 @@ def affichage_point():
     liste_x1=[]
     liste_x2=[]
     for i in range(n2):
-        x1=liste_data_pour_somme[i][0]
-        x2=liste_data_pour_somme[i][1]
+        x1=liste_data[i][0]
+        x2=liste_data[i][1]
         liste_x1.append(x1)
         liste_x2.append(x2)
     x_point=np.linspace(0,len(liste_cible_max),len(liste_cible_max))
@@ -244,8 +243,8 @@ liste_cible_analyse=cible(liste_data_analyse)
 liste_cible_max_analyse=cible_somme(liste_cible_analyse)
 
 #maj/equilibrage des cibles et de la liste de données de l'analyse
-liste_cible_max_analyse,liste_data_analyse=equilibrage(liste_cible_max,liste_data_analyse_pour_somme)
-print(n2)
+liste_cible_max_analyse,liste_data_analyse=equilibrage(liste_cible_max_analyse,liste_data_analyse_pour_somme)
+
 #maj data somme analyse
 liste_data_analyse=tuple_vers_liste(liste_data_analyse)
 liste_data_analyse=liste_tuple(liste_data_analyse,2)
