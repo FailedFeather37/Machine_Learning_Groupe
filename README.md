@@ -1,29 +1,46 @@
 # LE MACHINE LEARNING
-Le projet que l'on propose permet tous d'abord la création d'un neurone qui a pour but d'apprendre et poffiné son niveau d'erreur
+Un neurone est un composant de l'apprentissage automatique et il est au coeur de l'apprentissage en profondeur. La strucure d'un réseau de neurones est inspiré du cerveau humain, imitant la manière dont les neurones biologiques s'envoient des signaux.	
+Un neurone artificiel est constitué de couches nodales,
+contenant une couche d'entrée, une ou plusieurs couches cachées pour les réseaux de neurones
+ et une couche de sortie. Un neurone possède un poid et un seuil associé.	
+ Si la sortie du neurone est supérieure à la valeur de seuil spécifiée,
+ ce neurone est activé et envoie des données à la couche suivante du réseau.
+ Sinon, aucune donnée n'est transmise à la couche suivante du réseau.	
+Les réseaux de neurones s'appuient sur des données d'entraînement
+ pour apprendre et améliorer leur précision au fil du temps, on représentera cette
+évolution à l'aide de la bibliothèque matplotlib.
  
+# Contenu du répertoire
+
+|**Fichier**|Description|
+|---------------:|----------|
+|class_neurone.py| Fichier principal : implantation de l'algorithme d'apprentissage        |
+|deriv.py        | Calcul de quelques opérations mathématiques, y inclus le gradient         |
+|init_data.py    | Initialisation des données         |
+	
+
 # Les bibliothèques utilisés 
 
 
-|**Bibliothèque**| description |
+|**Bibliothèque**| Description |
 |---------------:|-----------|
-|Matplotlib      | *destinée à tracer et visualiser des données sous forme de graphiques. Elle peut être combinée avec les bibliothèques python de calcul scientifique comme NumPy*|
-|Scikit-learn    |*pour l'analyse prédictive de données réutilisables dans différents contextes construit sur NumPy et matplotlib*|
-|math            | *qui permet d'avoir des fonctions mathématiques suplémentaire*       |
-|tqdm        | JavaScript|
-|numpy| *permet d’effectuer des calculs numériques avec Python. Elle introduit une gestion facilitée des tableaux de nombres.*    |
-|random       | SQL       |
+|Matplotlib      | *Destinée à tracer et visualiser des données sous forme de graphiques. Elle peut être combinée avec les bibliothèques python de calcul scientifique comme NumPy*|
+|Scikit-learn    |*Pour l'analyse prédictive de données réutilisables dans différents contextes construit sur NumPy et matplotlib*|
+|math            | *Permet d'avoir des fonctions mathématiques supplémentaires*       |
+|tqdm        | *Fait en sorte que vos boucles affichent instantanément un compteur de progression intelligent*|
+|numpy| *Permet d'effectuer des calculs numériques avec Python. Elle introduit une gestion facilitée des tableaux de nombres.*    |
+|random       | *Une fonction permettant de produire des nombres aléatoires*       |
 
-**Matplotlib**  (*destinée à tracer et visualiser des données sous forme de graphiques. Elle peut être combinée avec les bibliothèques python de calcul scientifique comme NumPy*) 	
-**Scikit-learn**  (*pour l'analyse prédictive de données réutilisables dans différents contextes
-Construit sur NumPy et matplotlib*) 	
-**math**  (*qui permet d'avoir des fonction mathématiques suplémentaire*) 	
-**tqdm** (*taqaddum*) 	
-**numpy** (*permet d’effectuer des calculs numériques avec Python. Elle introduit une gestion facilitée des tableaux de nombres.*) 	
-**random** (*une fonction permettant de produire des nombres aléatoires*) 	
+
 # Documentation
+### Comment utiliser le neurone 
+	
+### Comment interpréter le résultat
+
+# Les contributions 
 
 
-
+ 
 
 
 
