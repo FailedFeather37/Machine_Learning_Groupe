@@ -14,9 +14,9 @@ Les réseaux de neurones s'appuient sur des données d'entraînement
 
 |**Fichier**|Description|
 |---------------:|----------|
-|class_neurone.py| Fichier principal : implantation de l'algorithme d'apprentissage        |
-|deriv.py        | Calcul de quelques opérations mathématiques, y inclus le gradient         |
-|init_data.py    | Initialisation des données         |
+|[class_neurone.py](class_neurone.py)| Fichier principal : implantation de l'algorithme d'apprentissage        |
+|[deriv.py](deriv.py)        | Calcul de quelques opérations mathématiques, y inclus le gradient         |
+|[init_data.py](init_data.py)    | Initialisation des données         |
 	
 
 # Les bibliothèques utilisés 
