@@ -19,7 +19,7 @@ Les réseaux de neurones s'appuient sur des données d'entraînement
 |[init_data.py](init_data.py)    | Initialisation des données         |
 	
 
-# Les bibliothèques utilisés 
+# Les bibliothèques utilisées 
 
 
 |**Bibliothèque**| Description |
@@ -34,27 +34,13 @@ Les réseaux de neurones s'appuient sur des données d'entraînement
 
 # Documentation
 ### Comment utiliser le neurone 
-	
+Executer le programme [class_neurone.py](class_neurone.py) sur Python. Le logiciel est testé et développé sur Python 3.7.
+
 ### Comment interpréter le résultat
+Suite à l'éxecution du programme un graphique est généré qui représente l'évolution des erreurs.
 
-# Les contributions 
-
-
- 
-
-
-
-
-
-
-[Class neurone](https://github.com/FailedFeather37/Machine_Learning_Groupe/blob/0a397561ded2e42dc00f8fee43cbc806317c9726/class_neurone.py1-#L7)
-[class neurone](https://github.com/FailedFeather37/Machine_Learning_Groupe/blob/9a9c0ecfe2ac3bfaa08d6be68b53a4a7c7d66204/class_neurone.py=1#L7)
-# Les contribution 
-Harry (pk il est cool)	
-**Nathan** (ps: il a tous fais)		
-Mael (et moi peut être je sais pas pourquoi)		
-
-```Le kilian (pas mal les bzez de ca cousine)
-
-```     
-[Class neurone](docs/Machine_Learning_Groupe/class_neurone.py)  
+## Auteurs
+Griguer Nathan
+Colombani Mael
+Mathei Kilian
+Besson Harry
