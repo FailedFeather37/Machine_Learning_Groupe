@@ -9,6 +9,7 @@ contenant une couche d'entrée, une ou plusieurs couches cachées pour les rése
 Les réseaux de neurones s'appuient sur des données d'entraînement
  pour apprendre et améliorer leur précision au fil du temps, on représentera cette
 évolution à l'aide de la bibliothèque matplotlib. 
+
 Ce projet pour l'instant ne comprend qu'un seul neurone
 permettant, en prennant 2 valeurs comprises en 0 et 1, de predire un ET logique.
  
