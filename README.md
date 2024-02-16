@@ -43,7 +43,7 @@ Fonction mathématique representée :
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mi>y</mi>
   <mo>=</mo>
-  <mi>h</mi>
+  <mi>sigmoid</mi>
   <mrow data-mjx-texclass="INNER">
     <mo data-mjx-texclass="OPEN">(</mo>
     <msub>
