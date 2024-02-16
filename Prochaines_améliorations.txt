@@ -1,4 +1,0 @@
-Corriger apprentissage
-Faire une courbe roc
-Faire fonction pour ET logique et OU logique
-Ensemble de validation
