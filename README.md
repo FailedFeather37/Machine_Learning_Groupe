@@ -47,14 +47,9 @@ Fonction mathématique representée :
   <mrow data-mjx-texclass="INNER">
     <mo data-mjx-texclass="OPEN">(</mo>
     <msub>
-      <mi>w</mi>
-      <mn>0</mn>
+      <mi>b</mi>
     </msub>
     <mo>+</mo>
-    <munderover>
-      <mo data-mjx-texclass="OP">&#x2211;</mo>
-      <mrow data-mjx-texclass="ORD">
-    </munderover>
     <msub>
       <mi>w</mi>
       <mi>i</mi>
