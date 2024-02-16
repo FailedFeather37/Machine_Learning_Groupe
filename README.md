@@ -18,7 +18,7 @@ Les réseaux de neurones s'appuient sur des données d'entraînement
 |[deriv.py](deriv.py)        | Calcul de quelques opérations mathématiques, y inclus le gradient         |
 |[init_data.py](init_data.py)    | Initialisation des données         |
 	
-
+# Shéma d'un neurone
 # Les bibliothèques utilisées 
 
 
@@ -33,11 +33,17 @@ Les réseaux de neurones s'appuient sur des données d'entraînement
 
 
 # Documentation
-### Comment utiliser le neurone 
-Executer le programme [class_neurone.py](class_neurone.py) sur Python. Le logiciel est testé et développé sur Python 3.7.
+##Initialisation des données (init_data)
+Initiatisation des données pour l'apprentissage avec x1 et x2 et des poids w1 et w2 puis équilibrage des données avec sur-échantillonage et génération des cibles pour les paires de données.Calcul du produit scalaire de f(X,W) avec le biais et calcul des erreurs. Même processus pour la génération de données pour l'analyse.
+##Modèle de dérivation
+Modèle de dérivation partiel basique 
+Classe Variable comprenant une valeur et un gradient (le gradient étant associé à la dérivé de la valeur)
+Puis nou
+
 
 ### Comment interpréter le résultat
 Suite à l'éxecution du programme un graphique est généré qui représente l'évolution des erreurs.
+Executer le programme [class_neurone.py](class_neurone.py) sur Python. Le logiciel est testé et développé sur Python 3.7.
 
 ## Auteurs
 Griguer Nathan
