@@ -40,27 +40,7 @@ permettant, en prennant 2 valeurs comprises en 0 et 1, de predire un ET logique.
 Initiatisation des données pour l'apprentissage avec x1 et x2 et des poids w1 et w2 puis équilibrage des données avec sur-échantillonage et génération des cibles pour les paires de données.Calcul du produit scalaire de f(X,W) avec le biais et calcul des erreurs. Même processus pour la génération de données pour l'analyse. 	
 
 Fonction mathématique representée : 
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mi>y</mi>
-  <mo>=</mo>
-  <mi>sigmoid</mi>
-  <mrow data-mjx-texclass="INNER">
-    <mo data-mjx-texclass="OPEN">(</mo>
-    <msub>
-      <mi>b</mi>
-    </msub>
-    <mo>+</mo>
-    <msub>
-      <mi>w</mi>
-      <mi>i</mi>
-    </msub>
-    <msub>
-      <mi>x</mi>
-      <mi>i</mi>
-    </msub>
-    <mo data-mjx-texclass="CLOSE">)</mo>
-  </mrow>
-</math>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <mi>y</mi> <mo>=</mo> <mi>h</mi> <mrow data-mjx-texclass="INNER"> <mo data-mjx-texclass="OPEN">(</mo> <msub> <mi>w</mi> <mn>0</mn> </msub> <mo>+</mo> <munderover> <mo data-mjx-texclass="OP">&#x2211;</mo> <mrow data-mjx-texclass="ORD"> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>p</mi> </munderover> <msub> <mi>w</mi> <mi>i</mi> </msub> <msub> <mi>x</mi> <mi>i</mi> </msub> <mo data-mjx-texclass="CLOSE">)</mo> </mrow> </math>
 
 ### Modèle de dérivation : [deriv.py](deriv.py)
 Modèle de dérivation partiel basique 
