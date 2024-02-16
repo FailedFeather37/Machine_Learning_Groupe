@@ -9,6 +9,7 @@ b= 1
 n=100
 n2=int(n/2)
 
+assert n>=10,"Nombre insuffisant de données"
 
 def sigmoid(x):
     sig = 1 / (1 + math.exp(-x))
@@ -172,7 +173,7 @@ def affichage_point():
         liste_x2.append(x2)
     x_point=np.linspace(0,len(liste_cible_max),len(liste_cible_max))
     plt.scatter(x_point,liste_cible_max)
-    plt.title("Affichage des points x1 et x2 lors de l'apprentissage")
+    plt.title("Affichage de la position des points x1 et x2")
     plt.show()
 
 
@@ -234,7 +235,7 @@ liste_erreur=erreur(liste_cible_max,f_xw_learn)
 
 #Affichage des points pour l'apprentissage
 
-#print(affichage_point())
+print(affichage_point())
 
 
 #Analyse
