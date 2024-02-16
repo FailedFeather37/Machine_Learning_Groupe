@@ -36,8 +36,8 @@ permettant, en prennant 2 valeurs comprises en 0 et 1, de predire un ET logique.
 
 # Documentation
 ### Initialisation des données : [init_data.py](init_data.py)
-Initiatisation des données pour l'apprentissage avec x1 et x2 et des poids w1 et w2 puis équilibrage des données avec sur-échantillonage et génération des cibles pour les paires de données.Calcul du produit scalaire de f(X,W) avec le biais et calcul des erreurs. Même processus pour la génération de données pour l'analyse.
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+Initiatisation des données pour l'apprentissage avec x1 et x2 et des poids w1 et w2 puis équilibrage des données avec sur-échantillonage et génération des cibles pour les paires de données.Calcul du produit scalaire de f(X,W) avec le biais et calcul des erreurs. Même processus pour la génération de données pour l'analyse. 	
+Fonction mathématique representée : <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mi>y</mi>
   <mo>=</mo>
   <mi>h</mi>
