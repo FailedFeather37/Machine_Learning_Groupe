@@ -22,7 +22,7 @@ permettant, en prennant 2 valeurs comprises en 0 et 1, de predire un ET logique.
 |[init_data.py](init_data.py)    | Initialisation des données         |
 	
 # Shéma d'un neurone
-![alt tag][C:\Users\YVES\Downloads\shema_neurone.png]
+![alt tag](https://github.com/FailedFeather37/Machine_Learning_Groupe/blob/main/shema_neurone.png)
 # Les bibliothèques utilisées 
 
 
