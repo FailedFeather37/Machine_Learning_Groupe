@@ -54,11 +54,6 @@ Fonction mathématique representée :
     <munderover>
       <mo data-mjx-texclass="OP">&#x2211;</mo>
       <mrow data-mjx-texclass="ORD">
-        <mi>i</mi>
-        <mo>=</mo>
-        <mn>1</mn>
-      </mrow>
-      <mi>p</mi>
     </munderover>
     <msub>
       <mi>w</mi>
