@@ -41,19 +41,20 @@ permettant, en prennant 2 valeurs comprises en 0 et 1, de predire un ET logique.
 Initiatisation des données pour l'apprentissage avec x1 et x2 et des poids w1 et w2 puis équilibrage des données avec sur-échantillonage et génération des cibles pour les paires de données.Calcul du produit scalaire de f(X,W) avec le biais et calcul des erreurs. Même processus pour la génération de données pour l'analyse. 	
 
 Fonction mathématique representée : 
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <mi>y</mi> <mo>=</mo> <mi>h</mi> <mrow data-mjx-texclass="INNER"> <mo data-mjx-texclass="OPEN">(</mo> <msub> <mi>w</mi> <mn>0</mn> </msub> <mo>+</mo> <munderover> <mo data-mjx-texclass="OP">&#x2211;</mo> <mrow data-mjx-texclass="ORD"> </munderover>  <mi>i</mi> <mo>=</mo> <mn>1</mn><msub> <mi>w</mi> <mi>i</mi> </msub> <msub> <mi>x</mi> <mi>i</mi> </msub> <mo data-mjx-texclass="CLOSE">)</mo> </mrow> </math>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <mi>z</mi> <mo>=</mo> <mi>S</mi> <mrow data-mjx-texclass="INNER"> <mo data-mjx-texclass="OPEN">(</mo> <msub> <mi>w</mi> <mn>0</mn> </msub> <mo>+</mo> <munderover> <mo data-mjx-texclass="OP">&#x2211;</mo> <mrow data-mjx-texclass="ORD"> </munderover>  <msub> <mi>w</mi> <mi>i</mi> </msub> <msub> <mi>x</mi> <mi>i</mi> </msub> <mo data-mjx-texclass="CLOSE">)</mo> </mrow> </math>
 
 ### Modèle de dérivation : [deriv.py](deriv.py)
 Modèle de dérivation partiel basique 
- avec une classe Variable comprenant une valeur et un gradient (le gradient étant associé à la dérivé de la valeur)
-En reprenant le schéma d'un arbre binaire on peut calculer la somme des gradient en fonction de l'erreur et du rapport
+avec une classe Variable comprenant une valeur et un gradient (le gradient étant associé à la dérivé de la valeur).
+En reprenant le schéma d'un arbre binaire comprenant chaque composante de l'expression nous pouvons calculer la somme des gradient en fonction de l'erreur et du rapport
 
 ### Création du neurone : [class_neurone.py](class_neurone.py)
-Grâce au modèle nous pouvons dériver les valeurs en fonction de la fonction d'activation sigmoid. Nous faisons donc tout d'abord l'apprentissage du neurone avec l'EPOCHS ( nombre de passages d'un dataset d'entraînement par un algorithme) puis nous lui fournissons de nouvelles données ainsi que l'accurary avec sklearn pour verifier sa flexibilité
+Cette partie permet la rétropropagation du gradient pour ajuster les poids cela permettant l'apprentissage du neurone avec les EPOCHS ( nombre de passages d'un dataset d'entraînement par un algorithme).Nous lui fournissons ensuite de nouvelles données et faisons l'accurary avec sklearn pour verifier la flexibilité du neurone à s'adapter à de nouveaux data set.
 ### Comment interpréter le résultat
 Suite à l'éxecution du programme un graphique est généré qui représente l'évolution des sommes des erreurs à chaque EPOCH.
 Executer le programme [class_neurone.py](class_neurone.py) sur Python. 
 De plus dans [init_data.py](init_data.py) : Génération du graphique de la position des x1 et x2
+
 Le logiciel est testé et développé sur Python 3.7.
 
 ## Auteurs
