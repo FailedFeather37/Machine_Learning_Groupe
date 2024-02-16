@@ -41,41 +41,11 @@ def data_analyse():
 def poids():
     l=[]
     for i in range(2):
-        w= random.uniform(0,10)
+        w= random.uniform(-1,1)
         l.append(w)
     return(l)
 
 
-
-"""
-def somme_data_poids(liste_data,liste_poids):
-    a=0
-    compt=1
-    comptw=0
-    paire=0
-    liste_paire=[]
-    ite=0
-    for i in range(n):
-        produit=liste_poids[comptw]*liste_data[i]
-        if paire!=2:
-            a+=produit
-        else:
-            liste_paire.append(a)
-            a=liste_poids[comptw]*liste_data[i]
-            paire=0
-        if produit==liste_poids[ite]*liste_data[-1] and paire==1:
-            liste_paire.append(a)
-
-        if produit==liste_poids[ite]*liste_data[-1] and paire==0:
-            liste_paire.append(a)
-        paire+=1
-        compt+=1
-        comptw+=1
-        comptw= comptw % 2
-        ite=n-comptw
-        ite=ite %2
-    return(liste_paire)
-"""
 # fonction permettant de faire le produit scalaire de w et x : f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
 # return une liste avec a chaque fois x1w1+x2w2
 def somme_data_poids(liste_data, liste_poids):
@@ -148,7 +118,7 @@ def equilibrage(liste_cible_max,liste_data_pour_somme):
     while pourc1 !=50 or pourc0!=50:
         for j in range(2):
             x = random.uniform(0.5,1)
-            liste_data_pour_somme.append(x)  
+            liste_data_pour_somme.append(x)
         if pourc1 < 50:
             liste_cible_max.append(1)
         else:
@@ -187,7 +157,7 @@ def tuple_vers_liste(liste):
     for i in liste:
        l.append(i[0])
        l.append(i[1])
-    return(l) 
+    return(l)
 
 
 
@@ -272,4 +242,3 @@ f_xw_analyse=f_complexe(somme_analyse)
 liste_erreur_analyse=erreur(liste_cible_max_analyse,f_xw_analyse)
 #print("f(X,W) analyse :",f_xw_analyse)
 #print("liste d'erreur analyse :",liste_erreur_analyse)
-

@@ -3,7 +3,6 @@ from deriv import *
 from math import *
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
-from tqdm import tqdm
 import numpy as np
 
 
@@ -57,7 +56,7 @@ class Neurone:
         #print("Estimations learn class")
         # boucle pour x1 et x2
         for i in range(n2):
-            
+
             x1=liste_data[i][0]
             x2=liste_data[i][1]
             self.x1_g = Variable(x1)
@@ -67,7 +66,7 @@ class Neurone:
 
             if compt % 10 == 0:
                 self.w1,self.w2,self.b=self.derive_partiel(e)
-                
+
             #recalcul des valeurs pour listage et modélisation
             z=x1*self.w1+x2*self.w2+self.b
             z=sigmoid(z)
@@ -84,15 +83,15 @@ class Neurone:
         de_dw1=calcul_gradient(e,self.w1_g)
         de_dw2=calcul_gradient(e,self.w2_g)
         de_db=calcul_gradient(e,self.b_g)
-        
+
          # maj des valeurs avec les gradients
         self.w1 = self.w1-learning_rate*de_dw1
         self.w2 = self.w2-learning_rate*de_dw2
         self.b = self.b-learning_rate*de_db
-        
+
         return(self.w1,self.w2,self.b)
-        
-    
+
+
     #analyse de l'apprentissage avec un nouveau E et nouvelles datas
     def analyse(self):
         E_analyse=0
@@ -103,14 +102,14 @@ class Neurone:
             x1=liste_data_analyse[x][0]
             x2=liste_data_analyse[x][1]
 
-            z=x1*self.w1+x2*self.w2+b
+            z=x1*self.w1+x2*self.w2+self.b
 
             z=sigmoid(z)
-
+            print(z)
             #calcul erreur de l'analyse
             e = (z - liste_cible_max_analyse[x])**2
 
-            if z >=0.5:
+            if z >0.5:
                 y_liste.append(1)
             else:
                 y_liste.append(0)
@@ -119,14 +118,12 @@ class Neurone:
 
         #Evaluation de la précision du modèle et de s'adapter à de nouvelles données
         print("Accuracy Score analyse :", accuracy_score(liste_cible_max_analyse,y_liste))
-        #print(liste_cible_max_analyse)
-        #print(y_liste)
         return E_analyse
 
 
     def exec(self):
         liste_E=[]
-        for i in tqdm(range(EPOCHS)):
+        for i in (range(EPOCHS)):
             learn=self.apprentissage()
             liste_E.append(learn)
         return liste_E
@@ -137,6 +134,7 @@ if __name__=="__main__":
     liste_E=neurore.exec()
     analyse=neurore.analyse()
     print("E de l'analyse :",analyse)
+
     x_points=np.linspace(0,EPOCHS,EPOCHS)
     plt.plot(x_points,liste_E)
     plt.ylabel('erreurs')
@@ -152,7 +150,7 @@ if __name__=="__main__":
 corriger apprentissage
 faire une courbe roc
 faire fonction pour ET logique
-
+ensemble de validation
 
 1. __init__ avec les poids (class)
 2. calcul prediction selon x1 et x2 (class)
