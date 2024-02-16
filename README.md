@@ -33,7 +33,7 @@ Les réseaux de neurones s'appuient sur des données d'entraînement
 
 
 # Documentation
-##Initialisation des données (init_data)
+## Initialisation des données (init_data)
 Initiatisation des données pour l'apprentissage avec x1 et x2 et des poids w1 et w2 puis équilibrage des données avec sur-échantillonage et génération des cibles pour les paires de données.Calcul du produit scalaire de f(X,W) avec le biais et calcul des erreurs. Même processus pour la génération de données pour l'analyse.
 ##Modèle de dérivation
 Modèle de dérivation partiel basique 
