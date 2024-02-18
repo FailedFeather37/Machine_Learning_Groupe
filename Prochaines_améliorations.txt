@@ -2,3 +2,15 @@ Corriger apprentissage
 Faire une courbe roc
 Faire fonction pour ET logique et OU logique
 Ensemble de validation
+
+
+1. __init__ avec les poids (class)
+2. calcul prediction selon x1 et x2 (class)
+3. calcul de l'erreur avec les variables (class)
+4. apprentissage avec E (class)
+1 estimation = 1 itération
+(y1^-y1)²
+(y2^-y2)²  --> somme des erreurs = E
+(y3^-y3)²
+(y3^-y3)²
+((x1,x2),y1) --> y1^'
