@@ -6,10 +6,9 @@ import numpy as np
 
 
 b= 1
-n=100
+n=200
 n2=int(n/2)
 
-assert n>=10,"Nombre insuffisant de données"
 
 def sigmoid(x):
     sig = 1 / (1 + math.exp(-x))
@@ -42,7 +41,7 @@ def data_analyse():
 def poids():
     l=[]
     for i in range(2):
-        w= random.uniform(-1,1)
+        w= random.uniform(0,10)
         l.append(w)
     return(l)
 
@@ -114,12 +113,11 @@ def perc(liste_cible_max):
 
 #sur-echantillonage des données
 def equilibrage(liste_cible_max,liste_data_pour_somme):
-    global j
     pourc0,pourc1=perc(liste_cible_max)
     while pourc1 !=50 or pourc0!=50:
         for j in range(2):
             x = random.uniform(0.5,1)
-            liste_data_pour_somme.append(x)
+            liste_data_pour_somme.append(x)  
         if pourc1 < 50:
             liste_cible_max.append(1)
         else:
@@ -158,7 +156,7 @@ def tuple_vers_liste(liste):
     for i in liste:
        l.append(i[0])
        l.append(i[1])
-    return(l)
+    return(l) 
 
 
 
@@ -173,7 +171,7 @@ def affichage_point():
         liste_x2.append(x2)
     x_point=np.linspace(0,len(liste_cible_max),len(liste_cible_max))
     plt.scatter(x_point,liste_cible_max)
-    plt.title("Affichage de la position des points x1 et x2")
+    plt.title("Affichage des points x1 et x2 lors de l'apprentissage")
     plt.show()
 
 
@@ -235,7 +233,7 @@ liste_erreur=erreur(liste_cible_max,f_xw_learn)
 
 #Affichage des points pour l'apprentissage
 
-print(affichage_point())
+#print(affichage_point())
 
 
 #Analyse
@@ -243,3 +241,4 @@ f_xw_analyse=f_complexe(somme_analyse)
 liste_erreur_analyse=erreur(liste_cible_max_analyse,f_xw_analyse)
 #print("f(X,W) analyse :",f_xw_analyse)
 #print("liste d'erreur analyse :",liste_erreur_analyse)
+

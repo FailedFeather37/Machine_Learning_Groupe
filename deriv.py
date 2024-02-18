@@ -1,7 +1,4 @@
-from init_data import *
 from math import *
-import matplotlib.pyplot as plt
-import numpy as np
 
 
 class Variable:
@@ -49,8 +46,6 @@ class Variable:
         gradient=[(self,exp(self.value))]
         h = Variable(exp_value,gradient)
         return h
-
-
 
 
 def calcul_gradient(variable,rapport):

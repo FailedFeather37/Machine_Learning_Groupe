@@ -3,13 +3,14 @@ from deriv import *
 from math import *
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
+from tqdm import tqdm
 import numpy as np
 
 
 
 learning_rate=0.2
 liste_learn=[]
-EPOCHS=200
+EPOCHS=400
 y_learn_liste=[]
 compt=0
 
@@ -53,9 +54,10 @@ class Neurone:
         E=0
         y_learn_liste=[]
         global compt
-        n2=len(liste_data)
+        #print("Estimations learn class")
         # boucle pour x1 et x2
         for i in range(n2):
+            
             x1=liste_data[i][0]
             x2=liste_data[i][1]
             self.x1_g = Variable(x1)
@@ -65,39 +67,38 @@ class Neurone:
 
             if compt % 10 == 0:
                 self.w1,self.w2,self.b=self.derive_partiel(e)
-
+                
             #recalcul des valeurs pour listage et modélisation
             z=x1*self.w1+x2*self.w2+self.b
             z=sigmoid(z)
-
+            
+            
             if z >0.5:
                 y_learn_liste.append(1)
             else:
                 y_learn_liste.append(0)
-
-
+            
             #calcul somme des erreurs
             E+=e.value
             compt+=1
-        #Précision du modèle à chaque apprentissage
-        print("Accuracy Score apprentissage :", accuracy_score(liste_cible_max,y_learn_liste))
         return E
 
 
     def derive_partiel(self,e):
-        #descente de gradient
+        #nouvelle méthode
+        # dérivées partielles
         de_dw1=calcul_gradient(e,self.w1_g)
         de_dw2=calcul_gradient(e,self.w2_g)
         de_db=calcul_gradient(e,self.b_g)
-
-        # maj des valeurs avec les gradients
+        
+         # maj des valeurs avec les gradients
         self.w1 = self.w1-learning_rate*de_dw1
         self.w2 = self.w2-learning_rate*de_dw2
         self.b = self.b-learning_rate*de_db
-
+        
         return(self.w1,self.w2,self.b)
-
-
+        
+    
     #analyse de l'apprentissage avec un nouveau E et nouvelles datas
     def analyse(self):
         E_analyse=0
@@ -115,7 +116,7 @@ class Neurone:
             #calcul erreur de l'analyse
             e = (z - liste_cible_max_analyse[x])**2
 
-            if z >0.5:
+            if z >=0.5:
                 y_liste.append(1)
             else:
                 y_liste.append(0)
@@ -124,12 +125,14 @@ class Neurone:
 
         #Evaluation de la précision du modèle et de s'adapter à de nouvelles données
         print("Accuracy Score analyse :", accuracy_score(liste_cible_max_analyse,y_liste))
+        #print(liste_cible_max_analyse)
+        #print(y_liste)
         return E_analyse
 
 
     def exec(self):
         liste_E=[]
-        for i in (range(EPOCHS)):
+        for i in tqdm(range(EPOCHS)):
             learn=self.apprentissage()
             liste_E.append(learn)
         return liste_E
@@ -140,30 +143,9 @@ if __name__=="__main__":
     liste_E=neurore.exec()
     analyse=neurore.analyse()
     print("E de l'analyse :",analyse)
-
     x_points=np.linspace(0,EPOCHS,EPOCHS)
     plt.plot(x_points,liste_E)
     plt.ylabel('erreurs')
     plt.title('Evolution de l\'erreur E '
     'en fonction des EPOCHS')
     plt.show()
-
-
-
-
-
-"""
-1. __init__ avec les poids (class)
-2. calcul prediction selon x1 et x2 (class)
-3. calcul de l'erreur avec les variables (class)
-4. apprentissage avec E (class)
-
-
-1 estimation = 1 itération
-(y1^-y1)²
-(y2^-y2)²  --> somme des erreurs = E
-(y3^-y3)²
-(y3^-y3)²
-
-((x1,x2),y1) --> y1^'
-"""
