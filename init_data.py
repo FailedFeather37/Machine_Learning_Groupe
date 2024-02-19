@@ -5,9 +5,15 @@ import numpy as np
 
 
 
-b= 1
-n=200
-n2=int(n/2)
+b=0
+input=int(input("Combien de données ? :"))
+n_data=input
+n2_data=int(n_data/2)
+
+n_data_analyse=input
+n2_data_analyse=int(n_data_analyse/2)
+
+assert input>=10, "Nombre insuffisant de données"
 
 
 def sigmoid(x):
@@ -18,7 +24,7 @@ def sigmoid(x):
 def data_set():
      x=0
      l=[]
-     for i in range(n):
+     for i in range(n_data):
         x = random.uniform(0,1)
         l.append(x)
      l_pour_somme=l
@@ -29,13 +35,12 @@ def data_set():
 #nouvelles données pour analyse
 def data_analyse():
      l=[]
-     for i in range(n):
+     for i in range(n_data_analyse):
         x = random.uniform(0,1)
         l.append(x)
      l_pour_somme=l
      l=liste_tuple(l,2)
      return(l_pour_somme,l)
-
 
 
 def poids():
@@ -48,9 +53,9 @@ def poids():
 
 # fonction permettant de faire le produit scalaire de w et x : f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
 # return une liste avec a chaque fois x1w1+x2w2
-def somme_data_poids(liste_data, liste_poids):
+def somme_data_poids(liste_data, liste_poids,n_data):
     liste_paire = []
-    for i in range(n):
+    for i in range(n_data):
         produit = liste_poids[0] * liste_data[i] + liste_poids[1] * liste_data[i]
         liste_paire.append(produit)
     return liste_paire
@@ -74,7 +79,6 @@ def liste_tuple(liste, taille_tuple):
         sous_liste = liste[i:i + taille_tuple]
         tuple_courant = tuple(sous_liste)
         liste_de_tuples.append(tuple_courant)
-
     return liste_de_tuples
 
 #Somme des cible de x1 et x2
@@ -112,19 +116,20 @@ def perc(liste_cible_max):
     return pourc0,pourc1
 
 #sur-echantillonage des données
-def equilibrage(liste_cible_max,liste_data_pour_somme):
+def equilibrage(liste_cible_max,liste_data_pour_somme,n_data):
     pourc0,pourc1=perc(liste_cible_max)
     while pourc1 !=50 or pourc0!=50:
         for j in range(2):
             x = random.uniform(0.5,1)
             liste_data_pour_somme.append(x)  
+            n_data+=1
         if pourc1 < 50:
             liste_cible_max.append(1)
         else:
             liste_cible_max.append(0)
         pourc0,pourc1=perc(liste_cible_max)
     liste_data_pour_somme=liste_tuple(liste_data_pour_somme,2)
-    return (liste_cible_max,liste_data_pour_somme)
+    return (liste_cible_max,liste_data_pour_somme,n_data)
 
 
 #Liste des estimations
@@ -164,7 +169,7 @@ def affichage_point():
     #Affichage des x1/x2 learn
     liste_x1=[]
     liste_x2=[]
-    for i in range(n2):
+    for i in range(n2_data):
         x1=liste_data[i][0]
         x2=liste_data[i][1]
         liste_x1.append(x1)
@@ -190,13 +195,13 @@ liste_cible=cible(liste_data)
 liste_cible_max=cible_somme(liste_cible)
 
 #maj/equilibrage des cibles et de la liste de données
-liste_cible_max,liste_data=equilibrage(liste_cible_max,liste_data_pour_somme)
+liste_cible_max,liste_data,n_data=equilibrage(liste_cible_max,liste_data_pour_somme,n_data)
 
 #maj de la 2e liste en fonction de la 1er
 liste_data_pour_somme=tuple_vers_liste(liste_data)
 
 #produit des données mis à jour et des poids
-somme_learn=somme_data_poids(liste_data_pour_somme,liste_poids)
+somme_learn=somme_data_poids(liste_data_pour_somme,liste_poids,n_data)
 
 
 
@@ -212,14 +217,14 @@ liste_cible_analyse=cible(liste_data_analyse)
 liste_cible_max_analyse=cible_somme(liste_cible_analyse)
 
 #maj/equilibrage des cibles et de la liste de données de l'analyse
-liste_cible_max_analyse,liste_data_analyse=equilibrage(liste_cible_max_analyse,liste_data_analyse_pour_somme)
+liste_cible_max_analyse,liste_data_analyse,n_data_analyse=equilibrage(liste_cible_max_analyse,liste_data_analyse_pour_somme,n_data_analyse)
 
 #maj data somme analyse
 liste_data_analyse=tuple_vers_liste(liste_data_analyse)
 liste_data_analyse=liste_tuple(liste_data_analyse,2)
 
 #produit des données de l'analyse mis à jour et des poids
-somme_analyse=somme_data_poids(liste_data_analyse_pour_somme,liste_poids)
+somme_analyse=somme_data_poids(liste_data_analyse_pour_somme,liste_poids,n_data_analyse)
 
 
 
@@ -232,7 +237,6 @@ liste_erreur=erreur(liste_cible_max,f_xw_learn)
 
 
 #Affichage des points pour l'apprentissage
-
 #print(affichage_point())
 
 
@@ -242,3 +246,8 @@ liste_erreur_analyse=erreur(liste_cible_max_analyse,f_xw_analyse)
 #print("f(X,W) analyse :",f_xw_analyse)
 #print("liste d'erreur analyse :",liste_erreur_analyse)
 
+#print(len(liste_data))
+#print(len(liste_cible_max))
+
+#print(len(liste_data_analyse))
+#print(len(liste_cible_max_analyse))

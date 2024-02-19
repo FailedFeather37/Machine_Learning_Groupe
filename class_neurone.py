@@ -3,16 +3,16 @@ from deriv import *
 from math import *
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
-from tqdm import tqdm
 import numpy as np
-
+#from tqdm import tqdm
 
 
 learning_rate=0.2
 liste_learn=[]
-EPOCHS=400
+EPOCHS=300
 y_learn_liste=[]
 compt=0
+
 
 class Neurone:
     #initialisation
@@ -54,10 +54,8 @@ class Neurone:
         E=0
         y_learn_liste=[]
         global compt
-        #print("Estimations learn class")
         # boucle pour x1 et x2
-        for i in range(n2):
-            
+        for i in range(len(liste_data)):
             x1=liste_data[i][0]
             x2=liste_data[i][1]
             self.x1_g = Variable(x1)
@@ -81,17 +79,17 @@ class Neurone:
             #calcul somme des erreurs
             E+=e.value
             compt+=1
+        print("Accuracy Score apprentissage :", accuracy_score(liste_cible_max,y_learn_liste))
         return E
 
 
     def derive_partiel(self,e):
-        #nouvelle méthode
         # dérivées partielles
         de_dw1=calcul_gradient(e,self.w1_g)
         de_dw2=calcul_gradient(e,self.w2_g)
         de_db=calcul_gradient(e,self.b_g)
         
-         # maj des valeurs avec les gradients
+        # maj des valeurs avec les gradients
         self.w1 = self.w1-learning_rate*de_dw1
         self.w2 = self.w2-learning_rate*de_dw2
         self.b = self.b-learning_rate*de_db
@@ -103,9 +101,8 @@ class Neurone:
     def analyse(self):
         E_analyse=0
         y_liste=[]
-        n2=len(liste_data_analyse)
 
-        for x in range(n2):
+        for x in range(len(liste_data_analyse)):
             x1=liste_data_analyse[x][0]
             x2=liste_data_analyse[x][1]
 
@@ -125,14 +122,12 @@ class Neurone:
 
         #Evaluation de la précision du modèle et de s'adapter à de nouvelles données
         print("Accuracy Score analyse :", accuracy_score(liste_cible_max_analyse,y_liste))
-        #print(liste_cible_max_analyse)
-        #print(y_liste)
         return E_analyse
 
 
     def exec(self):
         liste_E=[]
-        for i in tqdm(range(EPOCHS)):
+        for i in (range(EPOCHS)):
             learn=self.apprentissage()
             liste_E.append(learn)
         return liste_E
