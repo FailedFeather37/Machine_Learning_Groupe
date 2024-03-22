@@ -1,8 +1,10 @@
+
 import math
 import random
 import matplotlib.pyplot as plt
 import numpy as np
 
+#regler equilibrage pour et logique et ou logique fonction pour chaque equilibrage
 
 
 b=0
@@ -80,7 +82,7 @@ def liste_tuple(liste, taille_tuple):
         tuple_courant = tuple(sous_liste)
         liste_de_tuples.append(tuple_courant)
     return liste_de_tuples
-
+"""
 #Somme des cible de x1 et x2
 def cible_somme(liste_cible):
     cible=[]
@@ -89,6 +91,22 @@ def cible_somme(liste_cible):
     liste_cible=liste_tuple(liste_cible,2)
     for i in liste_cible:
         if i[0]+i[1]==2:
+            cible.append(1)
+            compt1+=1
+        else:
+            cible.append(0)
+            compt0+=1
+    return cible
+"""
+
+
+def cible_somme(liste_cible):
+    cible=[]
+    compt1=0
+    compt0=0
+    liste_cible=liste_tuple(liste_cible,2)
+    for i in liste_cible:
+        if i[0]+i[1]>=1:
             cible.append(1)
             compt1+=1
         else:
@@ -121,7 +139,7 @@ def equilibrage(liste_cible_max,liste_data_pour_somme,n_data):
     while pourc1 !=50 or pourc0!=50:
         for j in range(2):
             x = random.uniform(0.5,1)
-            liste_data_pour_somme.append(x)  
+            liste_data_pour_somme.append(x)
             n_data+=1
         if pourc1 < 50:
             liste_cible_max.append(1)
@@ -161,7 +179,7 @@ def tuple_vers_liste(liste):
     for i in liste:
        l.append(i[0])
        l.append(i[1])
-    return(l) 
+    return(l)
 
 
 
@@ -193,9 +211,10 @@ liste_cible=cible(liste_data)
 
 #cible des ET logique (0 ou 1 pour une paire de x1 et x2)
 liste_cible_max=cible_somme(liste_cible)
-
+print(liste_cible_max)
 #maj/equilibrage des cibles et de la liste de données
 liste_cible_max,liste_data,n_data=equilibrage(liste_cible_max,liste_data_pour_somme,n_data)
+print(liste_cible_max)
 
 #maj de la 2e liste en fonction de la 1er
 liste_data_pour_somme=tuple_vers_liste(liste_data)

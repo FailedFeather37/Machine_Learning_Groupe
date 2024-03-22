@@ -7,7 +7,7 @@ import numpy as np
 #from tqdm import tqdm
 
 
-learning_rate=0.2
+learning_rate=0.05
 liste_learn=[]
 EPOCHS=300
 y_learn_liste=[]
@@ -65,17 +65,17 @@ class Neurone:
 
             if compt % 10 == 0:
                 self.w1,self.w2,self.b=self.derive_partiel(e)
-                
+
             #recalcul des valeurs pour listage et modélisation
             z=x1*self.w1+x2*self.w2+self.b
             z=sigmoid(z)
-            
-            
+
+
             if z >0.5:
                 y_learn_liste.append(1)
             else:
                 y_learn_liste.append(0)
-            
+
             #calcul somme des erreurs
             E+=e.value
             compt+=1
@@ -88,15 +88,15 @@ class Neurone:
         de_dw1=calcul_gradient(e,self.w1_g)
         de_dw2=calcul_gradient(e,self.w2_g)
         de_db=calcul_gradient(e,self.b_g)
-        
+
         # maj des valeurs avec les gradients
         self.w1 = self.w1-learning_rate*de_dw1
         self.w2 = self.w2-learning_rate*de_dw2
         self.b = self.b-learning_rate*de_db
-        
+
         return(self.w1,self.w2,self.b)
-        
-    
+
+
     #analyse de l'apprentissage avec un nouveau E et nouvelles datas
     def analyse(self):
         E_analyse=0
