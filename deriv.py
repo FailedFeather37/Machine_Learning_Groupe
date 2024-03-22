@@ -6,7 +6,6 @@ class Variable:
         self.value = value
         self.gradient=gradient
 
-
     def __add__(self, other):
         addi=self.value + other.value
         gradient=[(self,1),(other,1)]

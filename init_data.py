@@ -1,20 +1,20 @@
-
 import math
 import random
 import matplotlib.pyplot as plt
 import numpy as np
 
-#regler equilibrage pour et logique et ou logique fonction pour chaque equilibrage
 
 
 b=0
+
 input=int(input("Combien de données ? :"))
 n_data=input
+#n_data=100
 n2_data=int(n_data/2)
 
+#n_data_analyse=100
 n_data_analyse=input
 n2_data_analyse=int(n_data_analyse/2)
-
 assert input>=10, "Nombre insuffisant de données"
 
 
@@ -54,7 +54,7 @@ def poids():
 
 
 # fonction permettant de faire le produit scalaire de w et x : f(X,W)=x1w1+x2w2 en faisant des paires avec x1 et x2 et en repetant ca n/2 fois
-# return une liste avec a chaque fois x1w1+x2w2
+# return une liste avec chaque  x1w1+x2w2
 def somme_data_poids(liste_data, liste_poids,n_data):
     liste_paire = []
     for i in range(n_data):
@@ -82,8 +82,9 @@ def liste_tuple(liste, taille_tuple):
         tuple_courant = tuple(sous_liste)
         liste_de_tuples.append(tuple_courant)
     return liste_de_tuples
-"""
+
 #Somme des cible de x1 et x2
+#Ciblage pour le ET logique
 def cible_somme(liste_cible):
     cible=[]
     compt1=0
@@ -97,23 +98,23 @@ def cible_somme(liste_cible):
             cible.append(0)
             compt0+=1
     return cible
-"""
 
-
+"""#corriger programme pour OU
+#Ciblage OU logique
 def cible_somme(liste_cible):
     cible=[]
     compt1=0
     compt0=0
     liste_cible=liste_tuple(liste_cible,2)
     for i in liste_cible:
-        if i[0]+i[1]>=1:
+        if i[0] + i[1] > 0:  # Modification for logical OR
             cible.append(1)
-            compt1+=1
+            compt1 += 1
         else:
             cible.append(0)
-            compt0+=1
+            compt0 += 1
     return cible
-
+"""
 
 def comptage(liste_cible_max):
     compt1=0
@@ -133,13 +134,14 @@ def perc(liste_cible_max):
     pourc0=int(compt0*100/len(liste_cible_max))
     return pourc0,pourc1
 
+
 #sur-echantillonage des données
 def equilibrage(liste_cible_max,liste_data_pour_somme,n_data):
     pourc0,pourc1=perc(liste_cible_max)
     while pourc1 !=50 or pourc0!=50:
         for j in range(2):
             x = random.uniform(0.5,1)
-            liste_data_pour_somme.append(x)
+            liste_data_pour_somme.append(x)  
             n_data+=1
         if pourc1 < 50:
             liste_cible_max.append(1)
@@ -179,7 +181,7 @@ def tuple_vers_liste(liste):
     for i in liste:
        l.append(i[0])
        l.append(i[1])
-    return(l)
+    return(l) 
 
 
 
@@ -194,7 +196,7 @@ def affichage_point():
         liste_x2.append(x2)
     x_point=np.linspace(0,len(liste_cible_max),len(liste_cible_max))
     plt.scatter(x_point,liste_cible_max)
-    plt.title("Affichage des points x1 et x2 lors de l'apprentissage")
+    plt.title("Affichage des points x1 et x2 lors du listage")
     plt.show()
 
 
@@ -211,10 +213,9 @@ liste_cible=cible(liste_data)
 
 #cible des ET logique (0 ou 1 pour une paire de x1 et x2)
 liste_cible_max=cible_somme(liste_cible)
-print(liste_cible_max)
+
 #maj/equilibrage des cibles et de la liste de données
 liste_cible_max,liste_data,n_data=equilibrage(liste_cible_max,liste_data_pour_somme,n_data)
-print(liste_cible_max)
 
 #maj de la 2e liste en fonction de la 1er
 liste_data_pour_somme=tuple_vers_liste(liste_data)
@@ -264,9 +265,3 @@ f_xw_analyse=f_complexe(somme_analyse)
 liste_erreur_analyse=erreur(liste_cible_max_analyse,f_xw_analyse)
 #print("f(X,W) analyse :",f_xw_analyse)
 #print("liste d'erreur analyse :",liste_erreur_analyse)
-
-#print(len(liste_data))
-#print(len(liste_cible_max))
-
-#print(len(liste_data_analyse))
-#print(len(liste_cible_max_analyse))
