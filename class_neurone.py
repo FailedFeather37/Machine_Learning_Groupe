@@ -8,7 +8,7 @@ import numpy as np
 from tqdm import tqdm
 
 
-learning_rate=0.2
+learning_rate=0.01
 liste_learn=[]
 EPOCHS=200
 y_learn_liste=[]
@@ -125,16 +125,16 @@ class Neurone:
         VP,VN,FP,FN,liste_tvp,liste_tfp = eval(liste_cible_max_analyse,y_liste)
         
         accuracy=(VP+VN)/(VP+VN+FP+FN)
-        print("Accuracy Score analyse :", accuracy)
+        #print("Accuracy Score analyse :", accuracy)
         
         precision=VP/(VP+FP)
-        print("Precision analyse :", precision)
+        #print("Precision analyse :", precision)
         
         rappel=VP/(VP+FN)
-        print("Rappel analyse :", rappel)
+        #print("Rappel analyse :", rappel)
         
         f_score=2/((1/precision)+(1/rappel))
-        print("f score analyse :", f_score)
+        #print("f score analyse :", f_score)
         
         plt.plot(liste_tvp,liste_tfp)
         plt.show()
@@ -180,7 +180,7 @@ if __name__=="__main__":
     neurore=Neurone()
     liste_E=neurore.exec()
     analyse=neurore.analyse()
-    print("E de l'analyse :",analyse)
+     #print("E de l'analyse :",analyse)
     
     x_points=np.linspace(0,EPOCHS,EPOCHS)
     plt.plot(x_points,liste_E)
