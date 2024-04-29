@@ -1,4 +1,3 @@
-﻿from calendar import EPOCH
 from init_data import *
 from deriv import *
 from math import *
@@ -14,48 +13,41 @@ EPOCHS=200
 y_learn_liste=[]
 compt=0
 
-
 class Neurone:
-    #initialisation
+    #Initialisation
     def __init__(self):
         self.w1=liste_poids[0]
         self.w2=liste_poids[1]
         self.b=b
 
-    #calcul de la prediction selon x1 et x2 (class)
+    #Calcul de la prediction selon x1 et x2 (class)
     def prediction(self,x1,x2):
         neg=Variable(-1)
         sig_value1=Variable(1)
-
         self.x1_g = Variable(x1)
         self.x2_g = Variable(x2)
         self.w1_g = Variable(self.w1)
         self.w2_g = Variable(self.w2)
         self.b_g = Variable(self.b)
-
         z=self.x1_g*self.w1_g+self.x2_g*self.w2_g + self.b_g
-
-        #gradient sigmoid
+        #Gradient sigmoid
         z_neg=z*neg
         z_sig= sig_value1 / (sig_value1 + z_neg.exp())
-
         return z_sig
-
-
-    #calcul de l'erreur avec les variables
+    
+    #Calcul de l'erreur avec les variables
     def erreur(self,z_sig,i):
         pui=Variable(2)
         cible_object=Variable(liste_cible_max[i])
         e = (cible_object - z_sig)**pui
         return e
-
-
-    #derive partiel avec E
+    
+    #Derive partiel avec E
     def apprentissage(self):
         E=0
         y_learn_liste=[]
         global compt
-        # boucle pour x1 et x2
+        #Boucle pour x1 et x2
         for i in range(len(liste_data)):
             x1=liste_data[i][0]
             x2=liste_data[i][1]
@@ -85,7 +77,6 @@ class Neurone:
 
 
     def derive_partiel(self,e):
-        # dérivées partielles
         de_dw1=calcul_gradient(e,self.w1_g)
         de_dw2=calcul_gradient(e,self.w2_g)
         de_db=calcul_gradient(e,self.b_g)
@@ -102,13 +93,10 @@ class Neurone:
     def analyse(self):
         E_analyse=0
         y_liste=[]
-
         for x in range(len(liste_data_analyse)):
             x1=liste_data_analyse[x][0]
             x2=liste_data_analyse[x][1]
-
             z=x1*self.w1+x2*self.w2+self.b
-
             z=sigmoid(z)
 
             #calcul erreur de l'analyse
@@ -123,22 +111,23 @@ class Neurone:
 
         #Evaluation de la précision du modèle et de s'adapter à de nouvelles données
         VP,VN,FP,FN,liste_tvp,liste_tfp = eval(liste_cible_max_analyse,y_liste)
-        
+
         accuracy=(VP+VN)/(VP+VN+FP+FN)
-        #print("Accuracy Score analyse :", accuracy)
-        
+        print("Accuracy Score analyse :", accuracy)
+
         precision=VP/(VP+FP)
-        #print("Precision analyse :", precision)
-        
+        print("Precision analyse :", precision)
+
         rappel=VP/(VP+FN)
-        #print("Rappel analyse :", rappel)
-        
+        print("Rappel analyse :", rappel)
+
         f_score=2/((1/precision)+(1/rappel))
-        #print("f score analyse :", f_score)
-        
+        print("f score analyse :", f_score)
+
         plt.plot(liste_tvp,liste_tfp)
         plt.show()
-        
+
+        print(liste_cible_max_analyse,y_liste)
         return E_analyse
 
     
@@ -160,7 +149,7 @@ def eval(liste_cible_max_analyse,y_liste):
     tvp=0
     tfp=0
     for i in range(len(liste_cible_max_analyse)):
-        
+
         if liste_cible_max_analyse[i]==1 and y_liste[i]==1:
             VP+=1
         elif liste_cible_max_analyse[i]==0 and y_liste[i]==0:
@@ -174,18 +163,17 @@ def eval(liste_cible_max_analyse,y_liste):
         liste_tvp.append(tvp)
         liste_tfp.append(tfp)
     return VP,VN,FP,FN,liste_tvp,liste_tfp
-    
-    
+
+
 if __name__=="__main__":
     neurore=Neurone()
     liste_E=neurore.exec()
     analyse=neurore.analyse()
-     #print("E de l'analyse :",analyse)
-    
+    print("E de l'analyse :",analyse)
+
     x_points=np.linspace(0,EPOCHS,EPOCHS)
     plt.plot(x_points,liste_E)
     plt.ylabel('erreurs')
     plt.title('Evolution de l\'erreur E '
     'en fonction des EPOCHS')
     plt.show()
-    

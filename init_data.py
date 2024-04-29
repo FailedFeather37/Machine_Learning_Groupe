@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-
 b=0
 
 input=int(input("Combien de données ? :"))
@@ -22,6 +21,7 @@ def sigmoid(x):
     sig = 1 / (1 + math.exp(-x))
     return sig
 
+
 #Génération des données pour l'apprentissage
 def data_set():
      x=0
@@ -34,7 +34,7 @@ def data_set():
      return(l_pour_somme,l)
 
 
-#nouvelles données pour analyse
+#Nouvelles données pour analyse
 def data_analyse():
      l=[]
      for i in range(n_data_analyse):
@@ -83,6 +83,7 @@ def liste_tuple(liste, taille_tuple):
         liste_de_tuples.append(tuple_courant)
     return liste_de_tuples
 
+
 #Somme des cible de x1 et x2
 #Ciblage pour le ET logique
 def cible_somme(liste_cible):
@@ -99,22 +100,6 @@ def cible_somme(liste_cible):
             compt0+=1
     return cible
 
-"""#corriger programme pour OU
-#Ciblage OU logique
-def cible_somme(liste_cible):
-    cible=[]
-    compt1=0
-    compt0=0
-    liste_cible=liste_tuple(liste_cible,2)
-    for i in liste_cible:
-        if i[0] + i[1] > 0:  # Modification for logical OR
-            cible.append(1)
-            compt1 += 1
-        else:
-            cible.append(0)
-            compt0 += 1
-    return cible
-"""
 
 def comptage(liste_cible_max):
     compt1=0
@@ -174,15 +159,12 @@ def erreur(liste_cible_max,f_xw):
     return (liste_erreur)
 
 
-
-
 def tuple_vers_liste(liste):
     l=[]
     for i in liste:
        l.append(i[0])
        l.append(i[1])
     return(l) 
-
 
 
 def affichage_point():
@@ -200,9 +182,7 @@ def affichage_point():
     plt.show()
 
 
-
 #PREPARATION DES DONNEES POUR L'APPPRENTISSAGE
-
 # liste_data_pour_somme --> sans tuple
 # liste_data --> avec tuple
 liste_data_pour_somme,liste_data=data_set()
@@ -224,9 +204,7 @@ liste_data_pour_somme=tuple_vers_liste(liste_data)
 somme_learn=somme_data_poids(liste_data_pour_somme,liste_poids,n_data)
 
 
-
 #PREPARATION DES DONNEES POUR L'ANALYSE
-
 #Génération de nouvellles données pour l'analyse
 liste_data_analyse_pour_somme,liste_data_analyse=data_analyse()
 
@@ -246,19 +224,15 @@ liste_data_analyse=liste_tuple(liste_data_analyse,2)
 #produit des données de l'analyse mis à jour et des poids
 somme_analyse=somme_data_poids(liste_data_analyse_pour_somme,liste_poids,n_data_analyse)
 
-
-
 #FONCTION ET ERREURS
-#Learn
+#Data Learn
 f_xw_learn=f_complexe(somme_learn)
 liste_erreur=erreur(liste_cible_max,f_xw_learn)
 #print("f(X,W) learn :",f_xw_learn)
 #print("liste d'erreur learn :",liste_erreur)
 
-
 #Affichage des points pour l'apprentissage
 #print(affichage_point())
-
 
 #Analyse
 f_xw_analyse=f_complexe(somme_analyse)
